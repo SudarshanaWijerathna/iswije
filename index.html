@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Portfolio - Mobile Frame</title>
+  <!-- Google Fonts: Google Sans Flex -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Viewport Wrapper (Centers the frame on desktop, full screen on mobile) -->
+  <div class="screen-wrapper">
+    <!-- Main Mobile Frame Container -->
+    <div class="mobile-frame" id="mobileFrame">
+
+      <!-- Inner Canvas with background -->
+      <div class="canvas-inner" id="canvasInner">
+
+        <!-- Top Navigation / Logo & Social Bar -->
+        <div class="hero-top-bar">
+          <div class="hero-logo" aria-label="Logo">
+            <img src="logo-buildmode.svg" alt="Logo" class="hero-logo-img">
+          </div>
+          <a href="https://www.linkedin.com/in/sudarshanawijerathna/" target="_blank" rel="noopener noreferrer" class="hero-social-btn" aria-label="LinkedIn Profile">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+        </div>
+
+        <!-- Background Giant Logo Watermark (Behind Noise Overlay) -->
+        <img src="logo-buildmode.svg" alt="" class="bg-logo-watermark" aria-hidden="true">
+
+        <!-- Noise Texture Overlay (behind portrait) -->
+        <img src="noiseoverlay001.jpg" alt="Noise Texture Overlay" class="noise-overlay" id="noiseOverlay">
+
+        <!-- Portrait Image Wrapper (Handles Horizontal Mode Switch) -->
+        <div class="portrait-wrapper" id="portraitWrapper">
+          <img src="portrait001.png" alt="Portrait" class="portrait-img" id="portraitImg">
+        </div>
+
+        <!-- Shadow Overlay (above portrait, left bottom aligned) -->
+        <img src="shadow001.png" alt="Shadow Overlay" class="shadow-overlay" id="shadowOverlay">
+
+        <!-- Left Docked Tab: Available for Work (Using notch001.svg geometry) -->
+        <div class="docked-tab-left" id="availableTab">
+          <svg class="notch-svg" viewBox="0 0 159.7 1320.6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path
+              d="M0,0 v53.23 c0,56.54,30.54,108.67,79.85,136.32 c49.31,27.66,79.85,79.79,79.85,136.33 v768.84 c0,56.54,-30.54,108.67,-79.85,136.32 c-49.31,27.65,-79.85,79.78,-79.85,136.32 v53.24 V0 Z" />
+          </svg>
+          <div class="tab-content">
+            <span class="status-dot"></span>
+            <span class="tab-text">AVAILABLE FOR WORK</span>
+          </div>
+        </div>
+
+        <!-- Hero Bottom Content: Title, Bio, HR & Action Buttons -->
+        <div class="hero-content" id="heroContent">
+          <h1 class="hero-heading">Hey, I’m Isuru</h1>
+          <p class="hero-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin purus pretium fermentum imperdiet.</p>
+          <hr class="hero-divider">
+          <div class="hero-actions">
+            <a href="#contact" class="hero-btn btn-talk">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.057 15.057 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-.99-1.11z"/>
+              </svg>
+              <span>Let’s talk</span>
+            </a>
+            <a href="#cv" class="hero-btn btn-cv" onclick="event.preventDefault()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span>Download CV</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom Docked Mode Switcher (Single Sliding Notch + Morphing Labels) -->
+        <div class="docked-mode-switcher" id="modeSwitchTab" role="tablist" aria-label="Mode switcher">
+          <!-- Single Shared Sliding Notch Background -->
+          <div class="mode-notch-slider" id="modeNotchSlider" aria-hidden="true">
+            <svg class="notch-bottom-svg" viewBox="0 0 645.25 170.15" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0,170.15c54.36,0,102.91-34,121.51-85.07h0C140.1,34,188.66,0,243.01,0h159.23c54.36,0,102.91,34,121.51,85.07h0c18.59,51.08,67.15,85.07,121.51,85.07H0Z" />
+            </svg>
+          </div>
+
+          <!-- Build Button Tab -->
+          <button type="button" class="mode-tab mode-tab-build active" id="buildModeBtn" role="tab" aria-selected="true"
+            aria-label="Build mode" onclick="window.setPortfolioMode && window.setPortfolioMode('build')">
+            <div class="mode-content">
+              <!-- build.svg icon -->
+              <svg class="mode-icon build-icon" viewBox="-40 -40 840 750" overflow="visible" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="70">
+                  <polyline points="197.57 74.62 9 320.42 197.57 555.63" />
+                  <polyline points="562.35 74.62 750.92 320.42 562.35 555.63" />
+                  <line x1="180.57" y1="658.14" x2="550.86" y2="9" />
+                </g>
+              </svg>
+              <span class="mode-text">build</span>
+            </div>
+          </button>
+
+          <!-- Design Button Tab -->
+          <button type="button" class="mode-tab mode-tab-design" id="designModeBtn" role="tab" aria-selected="false"
+            aria-label="Design mode" onclick="window.setPortfolioMode && window.setPortfolioMode('design')">
+            <div class="mode-content">
+              <!-- design.svg icon -->
+              <svg class="mode-icon design-icon" viewBox="-40 -40 615 655" overflow="visible" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round" stroke-width="50">
+                  <path
+                    d="M253.55,315.63c-54.38-45.57-185.55-2.11-188.04,92.92-2.49,95.03-40.98,134.47-56.51,143.24,114.26,35.85,213.28-17.32,248.5-65.85,35.23-48.53,60.03-116.69-3.95-170.31Z" />
+                  <path
+                    d="M203.27,297.23L428.28,28.71c19.55-23.33,54.3-26.39,77.63-6.84h0c23.33,19.55,26.39,54.3,6.84,77.63l-223.75,267.01" />
+                  <path d="M253.35,237.47c29.37,1.44,76.68,47.12,86.3,68.61" />
+                </g>
+              </svg>
+              <span class="mode-text">design</span>
+            </div>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Selected Works Section (Displayed when Build mode is on) -->
+    <section class="selected-works-section" id="selectedWorks" aria-label="Selected Works">
+      <!-- Section Header -->
+      <div class="works-header">
+        <h2 class="works-title" id="worksTitle">Selected Works</h2>
+        <p class="works-subtitle" id="worksSubtitle">A selection of products, systems, and experiments I've built across
+          AI, software, and data.</p>
+      </div>
+
+      <!-- Featured Project: Insightflow -->
+      <div class="featured-project" id="featuredProject">
+        <div class="featured-project-header">
+          <img src="project_logo_001.svg" alt="Insightflow Logo" class="featured-project-logo">
+          <h3 class="featured-project-title">Insightflow</h3>
+        </div>
+        <div class="featured-project-media">
+          <img src="project_thumbnail_001.png" alt="Insightflow Project Thumbnail" class="featured-project-img">
+        </div>
+      </div>
+
+      <!-- Works Grid Container with Notch003 Top-Left Contour -->
+      <div class="works-grid-wrapper">
+        <div class="works-grid-notch">
+          <!-- Left Notch Plateau (Dynamic Width with 20px Corner Radius) -->
+          <div class="notch-plateau">
+            <span class="notch-text">find more projects on</span>
+            <div class="notch-actions">
+              <a href="https://github.com/SudarshanaWijerathna" target="_blank" rel="noopener noreferrer" class="notch-icon-link" aria-label="GitHub Profile">
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/sudarshanawijerathna/" target="_blank" rel="noopener noreferrer" class="notch-icon-link" aria-label="LinkedIn Profile">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right S-Curve Fillet (Pure 1:1 Aspect Ratio, Never Distorts) -->
+          <svg class="notch-fillet-svg" viewBox="0 0 243.01 170.15" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M0,0c54.36,0,102.91,34,121.51,85.07h0c18.59,51.08,67.15,85.08,121.5,85.08H0V0Z" fill="#484540"/>
+          </svg>
+        </div>
+
+        <!-- Works Grid / Cards Container -->
+        <div class="works-grid" id="worksGrid">
+        <!-- Project 1: Nexus AI -->
+        <article class="project-card" data-category="build">
+          <div class="project-preview preview-nexus">
+            <div class="preview-glow"></div>
+            <div class="preview-mockup">
+              <div class="mockup-bar">
+                <div class="mockup-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span class="mockup-url">nexus-ai.dev/engine</span>
+              </div>
+              <div class="mockup-body">
+                <div class="code-line"><span class="c-purple">const</span> agent = <span class="c-blue">new</span> <span
+                    class="c-yellow">NexusEngine</span>({</div>
+                <div class="code-line indent"><span class="c-cyan">mode</span>: <span
+                    class="c-green">'autonomous'</span>,</div>
+                <div class="code-line indent"><span class="c-cyan">astAnalysis</span>: <span
+                    class="c-orange">true</span></div>
+                <div class="code-line">});</div>
+                <div class="code-status"><span class="status-pulse"></span> Streaming 1.2M tokens/s</div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Nexus AI</h3>
+            <p class="project-desc">Autonomous multi-agent orchestration engine with real-time streaming AST synthesis,
+              visual DAG pipeline editor, and sub-millisecond state execution.</p>
+            <div class="project-links">
+              <a href="#demo" class="project-link primary-link" onclick="event.preventDefault()">
+                <span>Live Demo</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+              <a href="#source" class="project-link secondary-link" onclick="event.preventDefault()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                  </path>
+                </svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: Aether 3D -->
+        <article class="project-card" data-category="build">
+          <div class="project-preview preview-aether">
+            <div class="preview-glow glow-cyan"></div>
+            <div class="preview-mockup">
+              <div class="mockup-3d-scene">
+                <div class="scene-rings">
+                  <div class="ring ring-1"></div>
+                  <div class="ring ring-2"></div>
+                  <div class="ring ring-3"></div>
+                </div>
+                <div class="scene-hud">
+                  <span class="hud-fps">60 FPS</span>
+                  <span class="hud-glsl">GLSL 3.0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Aether 3D</h3>
+            <p class="project-desc">High-performance interactive 3D spatial canvas with raymarched volumetric noise,
+              real-time audio FFT frequency analysis, and custom post-processing shaders.</p>
+            <div class="project-links">
+              <a href="#demo" class="project-link primary-link" onclick="event.preventDefault()">
+                <span>Launch Canvas</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+              <a href="#source" class="project-link secondary-link" onclick="event.preventDefault()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                  </path>
+                </svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3: HyperScale DB -->
+        <article class="project-card" data-category="build">
+          <div class="project-preview preview-hyperscale">
+            <div class="preview-glow glow-emerald"></div>
+            <div class="preview-mockup">
+              <div class="mockup-chart">
+                <div class="chart-bars">
+                  <div class="bar bar-1"><span>0.8ms</span></div>
+                  <div class="bar bar-2"><span>1.2ms</span></div>
+                  <div class="bar bar-3"><span>0.4ms</span></div>
+                  <div class="bar bar-4"><span>0.6ms</span></div>
+                </div>
+                <div class="chart-legend">
+                  <span>HNSW Query Latency (p99)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">HyperScale Vector DB</h3>
+            <p class="project-desc">Client-side embedded vector database compiled to WebAssembly with SIMD acceleration,
+              HNSW cosine indexing, and real-time CRDT peer synchronization.</p>
+            <div class="project-links">
+              <a href="#demo" class="project-link primary-link" onclick="event.preventDefault()">
+                <span>Benchmarks</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+              <a href="#source" class="project-link secondary-link" onclick="event.preventDefault()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                  </path>
+                </svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4: Pulse OS -->
+        <article class="project-card" data-category="build">
+          <div class="project-preview preview-pulse">
+            <div class="preview-glow glow-purple"></div>
+            <div class="preview-mockup">
+              <div class="mockup-dash">
+                <div class="dash-tile tile-1"><span class="tile-label">CPU Core</span><span class="tile-val">4.2
+                    GHz</span></div>
+                <div class="dash-tile tile-2"><span class="tile-label">Memory</span><span class="tile-val">98.4
+                    MB</span></div>
+                <div class="dash-tile tile-3"><span class="tile-label">Active Tasks</span><span class="tile-val">12
+                    Running</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Pulse OS Workspace</h3>
+            <p class="project-desc">Keyboard-driven modular desktop workspace uniting terminal execution, markdown
+              knowledge graphs, and live telemetry in a distraction-free glassmorphic environment.</p>
+            <div class="project-links">
+              <a href="#demo" class="project-link primary-link" onclick="event.preventDefault()">
+                <span>View Release</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+              <a href="#source" class="project-link secondary-link" onclick="event.preventDefault()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                  </path>
+                </svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </article>
+        </div>
+      </div>
+
+      <!-- What I Build Section (Capabilities & Domains) -->
+      <div class="capabilities-section" id="whatIBuild">
+        <div class="capabilities-header">
+          <h2 class="capabilities-title">What I Build</h2>
+          <p class="capabilities-subtitle">Core capabilities, architectures, and technical domains across AI systems,
+            machine learning, and full-stack engineering.</p>
+        </div>
+
+        <div class="capabilities-grid">
+          <!-- 1. AI Products -->
+          <div class="capability-card">
+            <div class="capability-icon-wrap icon-ai">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+              </svg>
+            </div>
+            <div class="capability-body">
+              <h3 class="capability-heading">AI Products</h3>
+              <p class="capability-desc">Building applications around LLMs, RAG, multimodal models and intelligent
+                agents.</p>
+              <div class="capability-highlights">
+                <span class="highlight-item">InsightFlow</span>
+                <span class="highlight-item">Reva</span>
+                <span class="highlight-item">Atlasflow</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Machine Learning -->
+          <div class="capability-card">
+            <div class="capability-icon-wrap icon-ml">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                <line x1="12" y1="22.08" x2="12" y2="12" />
+              </svg>
+            </div>
+            <div class="capability-body">
+              <h3 class="capability-heading">Machine Learning</h3>
+              <p class="capability-desc">Predictive modelling, time-series forecasting, feature engineering and model
+                evaluation.</p>
+              <div class="capability-highlights">
+                <span class="highlight-item">LightGBM</span>
+                <span class="highlight-item">PyTorch</span>
+                <span class="highlight-item">TensorFlow</span>
+                <span class="highlight-item">Scikit-learn</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Full-Stack -->
+          <div class="capability-card">
+            <div class="capability-icon-wrap icon-fs">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+            </div>
+            <div class="capability-body">
+              <h3 class="capability-heading">Full-Stack</h3>
+              <p class="capability-desc">Building complete products from frontend to backend, databases and deployment.
+              </p>
+              <div class="capability-highlights">
+                <span class="highlight-item">React</span>
+                <span class="highlight-item">TypeScript</span>
+                <span class="highlight-item">FastAPI</span>
+                <span class="highlight-item">PostgreSQL</span>
+                <span class="highlight-item">Docker</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Data & Research -->
+          <div class="capability-card">
+            <div class="capability-icon-wrap icon-data">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+              </svg>
+            </div>
+            <div class="capability-body">
+              <h3 class="capability-heading">Data &amp; Research</h3>
+              <p class="capability-desc">Exploring datasets, modelling approaches and experimental AI systems.</p>
+              <div class="capability-highlights">
+                <span class="highlight-item">Exploratory Analysis</span>
+                <span class="highlight-item">Hypothesis Testing</span>
+                <span class="highlight-item">Agentic Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experiments & Research -->
+      <div class="content-section" id="experiments">
+        <div class="section-header-compact">
+          <div class="section-title-wrap">
+            <h2 class="section-heading">Experiments &amp; Research</h2>
+            <p class="section-subtext">Things I built while trying to understand something.</p>
+          </div>
+        </div>
+
+        <div class="experiments-grid">
+          <!-- Exp 1 -->
+          <div class="experiment-card">
+            <div class="exp-header">
+              <h3 class="exp-title">N-BEATS Forecasting</h3>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="exp-arrow">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">Time Series</span>
+              <span class="exp-tag-dot">·</span>
+              <span class="exp-tag">PyTorch</span>
+            </div>
+          </div>
+
+          <!-- Exp 2 -->
+          <div class="experiment-card">
+            <div class="exp-header">
+              <h3 class="exp-title">Sinhala Language Model</h3>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="exp-arrow">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">NLP</span>
+              <span class="exp-tag-dot">·</span>
+              <span class="exp-tag">SLM</span>
+            </div>
+          </div>
+
+          <!-- Exp 3 -->
+          <div class="experiment-card">
+            <div class="exp-header">
+              <h3 class="exp-title">Land Price Prediction</h3>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="exp-arrow">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">Regression</span>
+              <span class="exp-tag-dot">·</span>
+              <span class="exp-tag">LightGBM</span>
+            </div>
+          </div>
+
+          <!-- Exp 4 -->
+          <div class="experiment-card">
+            <div class="exp-header">
+              <h3 class="exp-title">RAG Experiments</h3>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="exp-arrow">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">LLM</span>
+              <span class="exp-tag-dot">·</span>
+              <span class="exp-tag">Retrieval</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How I Build -->
+      <div class="content-section" id="howIBuild">
+        <div class="section-header-compact">
+          <div class="section-title-wrap">
+            <h2 class="section-heading">How I Build</h2>
+            <p class="section-subtext">Engineering workflow &amp; technical stack.</p>
+          </div>
+        </div>
+
+        <!-- Workflow Pipeline -->
+        <div class="workflow-container">
+          <div class="workflow-label-row">
+            <span class="workflow-label">ENGINEERING PIPELINE</span>
+          </div>
+          <div class="workflow-steps">
+            <div class="wf-step"><span class="wf-num">01</span><span class="wf-name">IDEA</span></div>
+            <span class="wf-arrow">→</span>
+            <div class="wf-step"><span class="wf-num">02</span><span class="wf-name">RESEARCH</span></div>
+            <span class="wf-arrow">→</span>
+            <div class="wf-step"><span class="wf-num">03</span><span class="wf-name">DATA</span></div>
+            <span class="wf-arrow">→</span>
+            <div class="wf-step"><span class="wf-num">04</span><span class="wf-name">MODEL</span></div>
+            <span class="wf-arrow">→</span>
+            <div class="wf-step"><span class="wf-num">05</span><span class="wf-name">PRODUCT</span></div>
+            <span class="wf-arrow">→</span>
+            <div class="wf-step"><span class="wf-num">06</span><span class="wf-name">DEPLOY</span></div>
+            <span class="wf-arrow">→</span>
+            <div class="wf-step"><span class="wf-num">07</span><span class="wf-name">ITERATE</span></div>
+          </div>
+        </div>
+
+        <!-- Categorized Stack -->
+        <div class="stack-categories">
+          <!-- Languages -->
+          <div class="stack-row">
+            <span class="stack-cat-title">Languages</span>
+            <div class="stack-pills">
+              <span class="stack-pill">Python</span>
+              <span class="stack-pill">TypeScript</span>
+              <span class="stack-pill">Java</span>
+              <span class="stack-pill">C++</span>
+              <span class="stack-pill">SQL</span>
+            </div>
+          </div>
+
+          <!-- AI / ML -->
+          <div class="stack-row">
+            <span class="stack-cat-title">AI / ML</span>
+            <div class="stack-pills">
+              <span class="stack-pill">PyTorch</span>
+              <span class="stack-pill">TensorFlow</span>
+              <span class="stack-pill">Scikit-learn</span>
+              <span class="stack-pill">HuggingFace</span>
+              <span class="stack-pill">LangChain</span>
+              <span class="stack-pill">LightGBM</span>
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div class="stack-row">
+            <span class="stack-cat-title">Backend</span>
+            <div class="stack-pills">
+              <span class="stack-pill">FastAPI</span>
+              <span class="stack-pill">Flask</span>
+              <span class="stack-pill">Node.js</span>
+              <span class="stack-pill">PostgreSQL</span>
+              <span class="stack-pill">Redis</span>
+            </div>
+          </div>
+
+          <!-- Frontend -->
+          <div class="stack-row">
+            <span class="stack-cat-title">Frontend</span>
+            <div class="stack-pills">
+              <span class="stack-pill">React</span>
+              <span class="stack-pill">Next.js</span>
+              <span class="stack-pill">TypeScript</span>
+              <span class="stack-pill">TailwindCSS</span>
+              <span class="stack-pill">Three.js</span>
+            </div>
+          </div>
+
+          <!-- Infrastructure -->
+          <div class="stack-row">
+            <span class="stack-cat-title">Infrastructure</span>
+            <div class="stack-pills">
+              <span class="stack-pill">Docker</span>
+              <span class="stack-pill">GitHub Actions</span>
+              <span class="stack-pill">AWS</span>
+              <span class="stack-pill">GCP</span>
+              <span class="stack-pill">Vercel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="content-section" id="about">
+        <div class="section-header-compact">
+          <div class="section-title-wrap">
+            <h2 class="section-heading">About</h2>
+            <p class="section-subtext">The story behind the craft.</p>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <p class="about-lead">I started by making things people could see.</p>
+          <div class="about-paragraphs">
+            <p>Before university, I was making YouTube videos, editing footage, designing thumbnails and creating visual
+              identities for clients.</p>
+            <p>Later, I started building software and became interested in AI and machine learning.</p>
+            <p class="about-highlight">Today, I work somewhere between the two — building technical products while
+              bringing a designer's perspective to how they look, communicate and feel.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="content-section contact-section" id="contact">
+        <div class="section-header-compact">
+          <div class="section-title-wrap">
+            <h2 class="section-heading">Contact</h2>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h3 class="contact-prompt">Have something worth building?</h3>
+          <a href="mailto:hello@example.com" class="contact-cta-btn">
+            <span>Let's talk</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+
+          <div class="contact-links-row">
+            <a href="https://www.linkedin.com/in/sudarshanawijerathna/" target="_blank" rel="noopener noreferrer" class="contact-pill-link">
+              <span>LinkedIn</span>
+            </a>
+            <span class="contact-sep">·</span>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="contact-pill-link">
+              <span>GitHub</span>
+            </a>
+            <span class="contact-sep">·</span>
+            <a href="mailto:hello@example.com" class="contact-pill-link">
+              <span>Email</span>
+            </a>
+            <span class="contact-sep">·</span>
+            <a href="#cv" class="contact-pill-link" onclick="event.preventDefault()">
+              <span>CV</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer / Back to Top -->
+      <footer class="works-footer">
+        <div class="footer-divider"></div>
+        <p class="footer-copy">Crafted with precision &amp; modern web standards.</p>
+        <button type="button" class="back-to-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+          <span>Back to Top</span>
+        </button>
+      </footer>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
