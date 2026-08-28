@@ -9,6 +9,7 @@ import { Media } from './collections/Media';
 import { Projects } from './collections/Projects';
 import { Capabilities } from './collections/Capabilities';
 import { Experiments } from './collections/Experiments';
+import { Certificates } from './collections/Certificates';
 import { Profile } from './globals/Profile';
 import { SiteSettings } from './globals/SiteSettings';
 
@@ -22,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Projects, Capabilities, Experiments],
+  collections: [Users, Media, Projects, Capabilities, Experiments, Certificates],
   globals: [Profile, SiteSettings],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || 'super-secret-payload-key-1234567890-secure',

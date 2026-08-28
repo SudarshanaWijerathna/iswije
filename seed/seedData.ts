@@ -30,12 +30,12 @@ export async function seed() {
         worksTitle: 'Selected Works',
         buildSubtitle: "A selection of products, systems, and experiments I've built across AI, software, and data.",
         designSubtitle: 'Design systems, interaction prototypes, and spatial user experiences crafted with micro-precision.',
-        aboutLead: 'I started by making things people could see.',
+        aboutLead: 'I started creating long before I started coding.',
         aboutParagraphs: [
-          { text: 'Before university, I was making YouTube videos, editing footage, designing thumbnails and creating visual identities for clients.' },
-          { text: 'Later, I started building software and became interested in AI and machine learning.' },
+          { text: 'As a teenager, I ran a YouTube channel where I was the presenter, editor, and thumbnail designer. Later, that interest turned into freelance work — designing logos, flyers, animations and videos for people and businesses.' },
+          { text: 'When I started studying Information Technology, my canvas changed. I moved from designing things people could see to building things people could use — exploring software engineering, AI, machine learning and data.' },
         ],
-        aboutHighlight: "Today, I work somewhere between the two — building technical products while bringing a designer's perspective to how they look, communicate and feel.",
+        aboutHighlight: "Today, I sit somewhere between the two. I build technical products with a designer's instinct for how they should look, communicate and feel.",
         contactPrompt: 'Have something worth building?',
         footerCopy: 'Crafted with precision & modern web standards.',
       },
@@ -216,5 +216,120 @@ export async function seed() {
     console.error('Error seeding experiments:', e);
   }
 
+  // 6. Seed Certificates
+  try {
+    const existingCerts = await payload.find({ collection: 'certificates' as any });
+    if (existingCerts.totalDocs === 0) {
+      await payload.create({
+        collection: 'certificates' as any,
+        data: {
+          title: 'Deep Learning Specialization',
+          issuer: 'DeepLearning.AI / Coursera',
+          category: 'ai-ml',
+          issueDate: '2024',
+          credentialId: 'DL-SPEC-982471',
+          credentialUrl: 'https://coursera.org/verify/specialization/sample',
+          description: 'Mastered neural networks, CNNs, RNNs, Transformers, optimization algorithms (Adam, RMSProp), and deep learning engineering best practices.',
+          skills: [
+            { skill: 'Deep Learning' },
+            { skill: 'PyTorch' },
+            { skill: 'Transformers' },
+            { skill: 'CNNs & RNNs' },
+          ],
+          isFeatured: true,
+          order: 1,
+        } as any,
+      });
+
+      await payload.create({
+        collection: 'certificates' as any,
+        data: {
+          title: 'AWS Certified Solutions Architect – Associate',
+          issuer: 'Amazon Web Services (AWS)',
+          category: 'cloud-devops',
+          issueDate: '2024',
+          expiryDate: '2027',
+          credentialId: 'AWS-SAA-839201',
+          credentialUrl: 'https://aws.amazon.com/verification',
+          description: 'Designing highly available, scalable, fault-tolerant, and secure distributed cloud systems on AWS architecture.',
+          skills: [
+            { skill: 'AWS Cloud' },
+            { skill: 'Distributed Systems' },
+            { skill: 'ECS / EKS' },
+            { skill: 'IAM & Security' },
+          ],
+          isFeatured: true,
+          order: 2,
+        } as any,
+      });
+
+      await payload.create({
+        collection: 'certificates' as any,
+        data: {
+          title: 'Machine Learning Specialization',
+          issuer: 'Stanford Online & DeepLearning.AI',
+          category: 'ai-ml',
+          issueDate: '2023',
+          credentialId: 'STANFORD-ML-44102',
+          credentialUrl: 'https://coursera.org/verify/specialization/sample',
+          description: 'Supervised and unsupervised learning, decision trees, ensemble methods, anomaly detection, recommender systems, and reinforcement learning fundamentals.',
+          skills: [
+            { skill: 'Machine Learning' },
+            { skill: 'Scikit-Learn' },
+            { skill: 'Algorithms' },
+            { skill: 'Gradient Boosting' },
+          ],
+          isFeatured: true,
+          order: 3,
+        } as any,
+      });
+
+      await payload.create({
+        collection: 'certificates' as any,
+        data: {
+          title: 'Professional Data Engineering',
+          issuer: 'Google Cloud Platform (GCP)',
+          category: 'data-science',
+          issueDate: '2023',
+          credentialId: 'GCP-PDE-119382',
+          credentialUrl: 'https://cloud.google.com/certification',
+          description: 'Building data processing pipelines, BigQuery warehousing, real-time stream processing with Pub/Sub & Dataflow, and MLOps operationalization.',
+          skills: [
+            { skill: 'BigQuery' },
+            { skill: 'Data Pipelines' },
+            { skill: 'Apache Beam' },
+            { skill: 'MLOps' },
+          ],
+          isFeatured: false,
+          order: 4,
+        } as any,
+      });
+
+      await payload.create({
+        collection: 'certificates' as any,
+        data: {
+          title: 'Full Stack Software Architecture & Design',
+          issuer: 'Meta / Coursera',
+          category: 'software-eng',
+          issueDate: '2023',
+          credentialId: 'META-FSD-771290',
+          credentialUrl: 'https://coursera.org/verify/sample',
+          description: 'Advanced React patterns, Next.js architecture, RESTful & GraphQL API design, database modeling, and microservices design principles.',
+          skills: [
+            { skill: 'React / Next.js' },
+            { skill: 'TypeScript' },
+            { skill: 'API Design' },
+            { skill: 'System Architecture' },
+          ],
+          isFeatured: false,
+          order: 5,
+        } as any,
+      });
+    }
+  } catch (e) {
+    console.error('Error seeding certificates:', e);
+  }
+
   console.log('Seeding process complete.');
 }
+

@@ -72,6 +72,7 @@ export interface Config {
     projects: Project;
     capabilities: Capability;
     experiments: Experiment;
+    certificates: Certificate;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     capabilities: CapabilitiesSelect<false> | CapabilitiesSelect<true>;
     experiments: ExperimentsSelect<false> | ExperimentsSelect<true>;
+    certificates: CertificatesSelect<false> | CertificatesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -242,6 +244,34 @@ export interface Experiment {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "certificates".
+ */
+export interface Certificate {
+  id: number;
+  title: string;
+  issuer: string;
+  category: 'ai-ml' | 'cloud-devops' | 'software-eng' | 'data-science' | 'design' | 'other';
+  issueDate: string;
+  expiryDate?: string | null;
+  credentialId?: string | null;
+  credentialUrl?: string | null;
+  description?: string | null;
+  image?: (number | null) | Media;
+  imageStaticUrl?: string | null;
+  pdfUrl?: string | null;
+  skills?:
+    | {
+        skill?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  isFeatured?: boolean | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -283,6 +313,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'experiments';
         value: number | Experiment;
+      } | null)
+    | ({
+        relationTo: 'certificates';
+        value: number | Certificate;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -426,6 +460,33 @@ export interface ExperimentsSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "certificates_select".
+ */
+export interface CertificatesSelect<T extends boolean = true> {
+  title?: T;
+  issuer?: T;
+  category?: T;
+  issueDate?: T;
+  expiryDate?: T;
+  credentialId?: T;
+  credentialUrl?: T;
+  description?: T;
+  image?: T;
+  imageStaticUrl?: T;
+  pdfUrl?: T;
+  skills?:
+    | T
+    | {
+        skill?: T;
+        id?: T;
+      };
+  isFeatured?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

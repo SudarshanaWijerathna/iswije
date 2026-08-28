@@ -11,7 +11,6 @@ import { ExperimentsSection } from '@/components/ExperimentsSection';
 import { HowIBuildSection } from '@/components/HowIBuildSection';
 import { AboutSection } from '@/components/AboutSection';
 import { ContactSection } from '@/components/ContactSection';
-import { BackToTop } from '@/components/BackToTop';
 
 export const dynamic = 'force-dynamic';
 
@@ -181,9 +180,6 @@ export default async function HomePage() {
           githubUrl={profileData?.githubUrl}
           cvUrl={profileData?.cvUrl}
         />
-
-        {/* Footer / Back to Top */}
-        <BackToTop footerCopy={siteSettings?.footerCopy} />
       </section>
     </>
   );

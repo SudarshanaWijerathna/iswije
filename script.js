@@ -131,10 +131,135 @@ function initPortraitParallax() {
   updateParallax();
 }
 
+/**
+ * About Timeline Progression Slider
+ * Handles smooth card transitions, step counting, stage badge updates,
+ * breadcrumbs, and swipe gestures.
+ */
+function initAboutSlider() {
+  const card = document.getElementById('aboutTimelineCard');
+  if (!card) return;
+
+  const slides = card.querySelectorAll('.timeline-slide');
+  const prevBtn = document.getElementById('timelinePrevBtn');
+  const nextBtn = document.getElementById('timelineNextBtn');
+  const counterCurr = document.getElementById('counterCurrent');
+  const stageName = document.getElementById('timelineStageName');
+  const stageBadge = document.getElementById('timelineStageBadge');
+  const segments = document.querySelectorAll('.progress-segment');
+
+  const STAGES = ['CREATE', 'CREATE', 'BUILD', 'COMBINE'];
+  let currentStep = 0;
+  let animating = false;
+
+  function updateSlider(newStep, direction = 'next') {
+    if (newStep === currentStep || animating) return;
+    animating = true;
+
+    const oldSlide = slides[currentStep];
+    const newSlide = slides[newStep];
+
+    slides.forEach((s) => {
+      s.classList.remove('active', 'slide-enter-next', 'slide-enter-prev', 'slide-exit-next', 'slide-exit-prev');
+    });
+
+    if (oldSlide && newSlide) {
+      if (direction === 'next') {
+        oldSlide.classList.add('slide-exit-next');
+        newSlide.classList.add('active', 'slide-enter-next');
+      } else {
+        oldSlide.classList.add('slide-exit-prev');
+        newSlide.classList.add('active', 'slide-enter-prev');
+      }
+    }
+
+    currentStep = newStep;
+
+    if (counterCurr) {
+      counterCurr.textContent = `0${currentStep + 1}`;
+    }
+
+    const stage = STAGES[currentStep];
+    if (stageName) stageName.textContent = stage;
+    if (stageBadge) {
+      stageBadge.className = `timeline-stage-badge stage-${stage.toLowerCase()}`;
+    }
+
+    segments.forEach((seg, idx) => {
+      if (idx <= currentStep) {
+        seg.classList.add('active');
+      } else {
+        seg.classList.remove('active');
+      }
+    });
+
+    if (prevBtn) {
+      prevBtn.disabled = currentStep === 0;
+    }
+
+    setTimeout(() => {
+      if (oldSlide) oldSlide.classList.remove('slide-exit-next', 'slide-exit-prev');
+      animating = false;
+    }, 400);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 0) {
+        updateSlider(currentStep - 1, 'prev');
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentStep < slides.length - 1) {
+        updateSlider(currentStep + 1, 'next');
+      } else {
+        updateSlider(0, 'next');
+      }
+    });
+  }
+
+  segments.forEach((seg, idx) => {
+    seg.addEventListener('click', () => {
+      const dir = idx > currentStep ? 'next' : 'prev';
+      updateSlider(idx, dir);
+    });
+  });
+
+  let touchStartX = null;
+  card.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  card.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchStartX - touchEndX;
+
+    if (Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        if (currentStep < slides.length - 1) {
+          updateSlider(currentStep + 1, 'next');
+        } else {
+          updateSlider(0, 'next');
+        }
+      } else {
+        if (currentStep > 0) {
+          updateSlider(currentStep - 1, 'prev');
+        }
+      }
+    }
+    touchStartX = null;
+  }, { passive: true });
+}
+
 // Run immediately or on DOMContentLoaded (handles all script loading timings)
 function initApp() {
   initModeSwitcher();
   initPortraitParallax();
+  initAboutSlider();
 }
 
 if (document.readyState === 'loading') {

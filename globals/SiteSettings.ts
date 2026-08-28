@@ -24,7 +24,7 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'aboutLead',
       type: 'text',
-      defaultValue: 'I started by making things people could see.',
+      defaultValue: 'I started creating long before I started coding.',
     },
     {
       name: 'aboutParagraphs',
@@ -39,7 +39,7 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'aboutHighlight',
       type: 'textarea',
-      defaultValue: "Today, I work somewhere between the two — building technical products while bringing a designer's perspective to how they look, communicate and feel.",
+      defaultValue: "Today, I sit somewhere between the two. I build technical products with a designer's instinct for how they should look, communicate and feel.",
     },
     {
       name: 'contactPrompt',

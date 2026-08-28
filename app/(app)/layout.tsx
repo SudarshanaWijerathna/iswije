@@ -3,8 +3,13 @@ import type { Metadata, Viewport } from 'next';
 import '../../style.css';
 
 export const metadata: Metadata = {
-  title: 'Portfolio - Mobile Frame',
+  title: 'Sudarshana Wijerathna',
   description: 'AI, software, and data engineering portfolio.',
+  icons: {
+    icon: '/logo-buildmode.svg',
+    shortcut: '/logo-buildmode.svg',
+    apple: '/logo-buildmode.svg',
+  },
 };
 
 export const viewport: Viewport = {
@@ -22,6 +27,7 @@ export default function AppLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/logo-buildmode.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
