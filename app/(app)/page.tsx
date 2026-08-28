@@ -9,8 +9,10 @@ import { ProjectsGrid } from '@/components/ProjectsGrid';
 import { CapabilitiesSection } from '@/components/CapabilitiesSection';
 import { ExperimentsSection } from '@/components/ExperimentsSection';
 import { HowIBuildSection } from '@/components/HowIBuildSection';
+import { BrandIdentitiesSection } from '@/components/BrandIdentitiesSection';
 import { AboutSection } from '@/components/AboutSection';
 import { ContactSection } from '@/components/ContactSection';
+import { BackToTop } from '@/components/BackToTop';
 
 export const dynamic = 'force-dynamic';
 
@@ -114,16 +116,6 @@ export default async function HomePage() {
     // If database is not ready, graceful fallback with all original content
   }
 
-  // Find featured project if any
-  const featured = projectsList.find((p) => p.isFeatured) || {
-    title: 'Insightflow',
-    logoUrl: '/project_logo_001.svg',
-    thumbnailUrl: '/project_thumbnail_001.png',
-  };
-
-  // Filter out featured from grid or show regular grid
-  const gridProjects = projectsList.filter((p) => !p.isFeatured);
-
   const worksTitle = siteSettings?.worksTitle || 'Selected Works';
   const worksSubtitle =
     siteSettings?.buildSubtitle ||
@@ -138,47 +130,56 @@ export default async function HomePage() {
       {/* Top Mobile Frame Canvas (Watermark, Portrait, Overlays, Notch Tab, Mode Switcher) */}
       <CanvasFrame profile={profileData} />
 
-      {/* Selected Works Section (Displayed when Build mode is on) */}
-      <section className="selected-works-section" id="selectedWorks" aria-label="Selected Works">
-        {/* Section Header */}
-        <div className="works-header">
-          <h2 className="works-title" id="worksTitle">{worksTitle}</h2>
-          <p className="works-subtitle" id="worksSubtitle">{worksSubtitle}</p>
+      {/* Selected Works Section */}
+      <section className="selected-works-section" id="selectedWorks" aria-label="Portfolio Works">
+        {/* Build Mode Specific Sections (Selected Works through How I Build) */}
+        <div className="build-mode-only">
+          {/* Section Header */}
+          <div className="works-header">
+            <h2 className="works-title" id="worksTitle">{worksTitle}</h2>
+            <p className="works-subtitle" id="worksSubtitle">{worksSubtitle}</p>
+          </div>
+
+          {/* Works Grid Container with Notch003 Top-Left Contour */}
+          <ProjectsGrid
+            projects={projectsList.length > 0 ? projectsList : undefined}
+            githubUrl={profileData?.githubUrl}
+            linkedinUrl={profileData?.linkedinUrl}
+          />
+
+          {/* What I Build Section (Capabilities & Domains) */}
+          <CapabilitiesSection capabilities={capabilitiesList.length > 0 ? capabilitiesList : undefined} />
+
+          {/* Experiments & Research */}
+          <ExperimentsSection experiments={experimentsList.length > 0 ? experimentsList : undefined} />
+
+          {/* How I Build */}
+          <HowIBuildSection />
         </div>
 
-        {/* Featured Project Showcase: Insightflow */}
-        <FeaturedProject project={featured} />
+        {/* Design Mode Specific Sections (Brand Identities & Logos) */}
+        <BrandIdentitiesSection />
 
-        {/* Works Grid Container with Notch003 Top-Left Contour */}
-        <ProjectsGrid
-          projects={gridProjects.length > 0 ? gridProjects : undefined}
-          githubUrl={profileData?.githubUrl}
-          linkedinUrl={profileData?.linkedinUrl}
-        />
-
-        {/* What I Build Section (Capabilities & Domains) */}
-        <CapabilitiesSection capabilities={capabilitiesList.length > 0 ? capabilitiesList : undefined} />
-
-        {/* Experiments & Research */}
-        <ExperimentsSection experiments={experimentsList.length > 0 ? experimentsList : undefined} />
-
-        {/* How I Build */}
-        <HowIBuildSection />
-
-        {/* About */}
+        {/* Shared: About */}
         <AboutSection
           lead={siteSettings?.aboutLead}
           paragraphs={aboutParagraphs.length > 0 ? aboutParagraphs : undefined}
           highlight={siteSettings?.aboutHighlight}
         />
 
-        {/* Contact */}
+        {/* Shared: Contact */}
         <ContactSection
           prompt={siteSettings?.contactPrompt}
           email={profileData?.email}
           linkedinUrl={profileData?.linkedinUrl}
           githubUrl={profileData?.githubUrl}
           cvUrl={profileData?.cvUrl}
+        />
+
+        {/* Footer */}
+        <BackToTop
+          footerCopy={siteSettings?.footerCopy || '© 2026 Sudarshana Wijerathna'}
+          rightsReserved={siteSettings?.footerRights || 'All rights reserved'}
         />
       </section>
     </>

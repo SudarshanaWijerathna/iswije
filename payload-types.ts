@@ -567,6 +567,7 @@ export interface SiteSetting {
   aboutHighlight?: string | null;
   contactPrompt?: string | null;
   footerCopy?: string | null;
+  footerRights?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -605,6 +606,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   aboutHighlight?: T;
   contactPrompt?: T;
   footerCopy?: T;
+  footerRights?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

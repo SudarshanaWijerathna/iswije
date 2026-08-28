@@ -10,8 +10,57 @@ function initModeSwitcher() {
 
   const worksBadgeText = document.getElementById('worksBadgeText');
   const worksSubtitle = document.getElementById('worksSubtitle');
+  let currentMode = 'build';
+
+  function playLogoTransition() {
+    const video = document.getElementById('logoTransitionVideo');
+    if (video) {
+      video.classList.add('playing');
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+      const onEnded = () => {
+        video.classList.remove('playing');
+      };
+      video.addEventListener('ended', onEnded, { once: true });
+      setTimeout(() => {
+        video.classList.remove('playing');
+      }, 1050);
+    }
+  }
 
   function setMode(mode) {
+    if (mode !== currentMode) {
+      const heroLogo = document.getElementById('heroLogo');
+      if (heroLogo) {
+        if (mode === 'design') {
+          heroLogo.classList.remove('transition-to-build');
+          heroLogo.classList.add('transition-to-design');
+        } else {
+          heroLogo.classList.remove('transition-to-design');
+          heroLogo.classList.add('transition-to-build');
+        }
+        setTimeout(() => {
+          heroLogo.classList.remove('transition-to-design', 'transition-to-build');
+        }, 1050);
+      }
+
+      if (mode === 'design') {
+        document.body.classList.remove('animating-to-build');
+        document.body.classList.add('animating-to-design');
+      } else {
+        document.body.classList.remove('animating-to-design');
+        document.body.classList.add('animating-to-build');
+      }
+      setTimeout(() => {
+        document.body.classList.remove('animating-to-design', 'animating-to-build');
+      }, 550);
+
+      playLogoTransition();
+      currentMode = mode;
+    }
     document.body.setAttribute('data-mode', mode);
 
     if (mode === 'build') {
@@ -63,6 +112,13 @@ function initModeSwitcher() {
         worksSubtitle.textContent = 'Design systems, interaction prototypes, and spatial user experiences crafted with micro-precision.';
       }
     }
+
+    // Update Favicon based on active mode
+    const faviconHref = mode === 'design' ? 'logo-designmode.svg' : 'logo-buildmode.svg';
+    const favicons = document.querySelectorAll("link[rel*='icon']");
+    favicons.forEach((fav) => {
+      fav.href = faviconHref;
+    });
   }
 
   // Expose globally so onclick handlers also work seamlessly

@@ -8,8 +8,9 @@ export interface ProjectItem {
   liveDemoUrl?: string;
   liveDemoText?: string;
   githubUrl?: string;
-  previewType?: 'nexus-code' | 'aether-3d' | 'hyperscale-chart' | 'pulse-dash' | 'image';
+  previewType?: 'nexus-code' | 'aether-3d' | 'hyperscale-chart' | 'pulse-dash' | 'image' | 'insightflow';
   thumbnailUrl?: string;
+  logoUrl?: string;
   tags?: { tag?: string }[];
 }
 
@@ -26,6 +27,19 @@ export function ProjectsGrid({
 }: ProjectsGridProps) {
   // Default projects matching original index.html exactly
   const defaultProjects: ProjectItem[] = [
+    {
+      id: 'insightflow',
+      title: 'Insightflow',
+      category: 'build',
+      previewType: 'insightflow',
+      thumbnailUrl: '/project_thumbnail_001.png',
+      logoUrl: '/project_logo_001.svg',
+      description:
+        'Turn podcasts and audio conversations into actionable key takeaways with AI-powered semantic intelligence and structured transcript synthesis.',
+      liveDemoUrl: '#demo',
+      liveDemoText: 'Live Demo',
+      githubUrl: '#source',
+    },
     {
       id: 'nexus-ai',
       title: 'Nexus AI',
@@ -76,6 +90,18 @@ export function ProjectsGrid({
 
   const renderPreview = (project: ProjectItem) => {
     switch (project.previewType) {
+      case 'insightflow':
+      case 'image':
+        return (
+          <div className="project-preview preview-insightflow">
+            <img
+              src={project.thumbnailUrl || '/project_thumbnail_001.png'}
+              alt={project.title}
+              className="project-preview-img"
+            />
+          </div>
+        );
+
       case 'nexus-code':
         return (
           <div className="project-preview preview-nexus">
@@ -213,7 +239,12 @@ export function ProjectsGrid({
           >
             {renderPreview(project)}
             <div className="project-info">
-              <h3 className="project-title">{project.title}</h3>
+              <div className="project-title-wrap-row">
+                {project.logoUrl && (
+                  <img src={project.logoUrl} alt="" className="project-logo-badge" />
+                )}
+                <h3 className="project-title">{project.title}</h3>
+              </div>
               <p className="project-desc">{project.description}</p>
               <div className="project-links">
                 {project.liveDemoUrl && (

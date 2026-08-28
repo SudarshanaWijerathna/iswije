@@ -409,7 +409,12 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
         {/* Footer */}
         <footer className="certs-page-footer">
           <div className="footer-divider"></div>
-          <p className="footer-copy">
+          <div className="footer-copyright-row">
+            <span className="footer-copy">© 2026 Sudarshana Wijerathna</span>
+            <span className="footer-sep">·</span>
+            <span className="footer-rights">All rights reserved</span>
+          </div>
+          <p className="certs-footer-note">
             Direct credential link for resume &amp; portfolio verification.
           </p>
           <Link href="/" className="certs-footer-home-btn">

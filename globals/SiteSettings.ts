@@ -49,7 +49,12 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'footerCopy',
       type: 'text',
-      defaultValue: 'Crafted with precision & modern web standards.',
+      defaultValue: '© 2026 Sudarshana Wijerathna',
+    },
+    {
+      name: 'footerRights',
+      type: 'text',
+      defaultValue: 'All rights reserved',
     },
   ],
 };

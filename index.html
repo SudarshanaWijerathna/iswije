@@ -26,8 +26,10 @@
 
         <!-- Top Navigation / Logo & Social Bar -->
         <div class="hero-top-bar">
-          <div class="hero-logo" aria-label="Logo">
-            <img src="logo-buildmode.svg" alt="Logo" class="hero-logo-img">
+          <div class="hero-logo" aria-label="Logo" id="heroLogo">
+            <video id="logoTransitionVideo" class="hero-logo-transition-video" src="logo_transition.webm" muted playsinline preload="auto" aria-hidden="true"></video>
+            <img src="logo-buildmode.svg" alt="Logo Build" class="hero-logo-img logo-build">
+            <img src="logo-designmode.svg" alt="Logo Design" class="hero-logo-img logo-design">
           </div>
           <a href="https://www.linkedin.com/in/sudarshanawijerathna/" target="_blank" rel="noopener noreferrer"
             class="hero-social-btn" aria-label="LinkedIn Profile">
@@ -36,7 +38,8 @@
         </div>
 
         <!-- Background Giant Logo Watermark (Behind Noise Overlay) -->
-        <img src="logo-buildmode.svg" alt="" class="bg-logo-watermark" aria-hidden="true">
+        <img src="logo-buildmode.svg" alt="" class="bg-logo-watermark watermark-build" aria-hidden="true">
+        <img src="logo-designmode-white.svg" alt="" class="bg-logo-watermark watermark-design" aria-hidden="true">
 
         <!-- Noise Texture Overlay (behind portrait) -->
         <img src="noiseoverlay001.jpg" alt="Noise Texture Overlay" class="noise-overlay" id="noiseOverlay">
@@ -137,25 +140,16 @@
       </div>
     </div>
 
-    <!-- Selected Works Section (Displayed when Build mode is on) -->
-    <section class="selected-works-section" id="selectedWorks" aria-label="Selected Works">
-      <!-- Section Header -->
-      <div class="works-header">
-        <h2 class="works-title" id="worksTitle">Selected Works</h2>
-        <p class="works-subtitle" id="worksSubtitle">A selection of products, systems, and experiments I've built across
-          AI, software, and data.</p>
-      </div>
-
-      <!-- Featured Project: Insightflow -->
-      <div class="featured-project" id="featuredProject">
-        <div class="featured-project-header">
-          <img src="project_logo_001.svg" alt="Insightflow Logo" class="featured-project-logo">
-          <h3 class="featured-project-title">Insightflow</h3>
+    <!-- Selected Works Section -->
+    <section class="selected-works-section" id="selectedWorks" aria-label="Portfolio Works">
+      <!-- Build Mode Content (Selected Works -> How I Build) -->
+      <div class="build-mode-only">
+        <!-- Section Header -->
+        <div class="works-header">
+          <h2 class="works-title" id="worksTitle">Selected Works</h2>
+          <p class="works-subtitle" id="worksSubtitle">A selection of products, systems, and experiments I've built across
+            AI, software, and data.</p>
         </div>
-        <div class="featured-project-media">
-          <img src="project_thumbnail_001.png" alt="Insightflow Project Thumbnail" class="featured-project-img">
-        </div>
-      </div>
 
       <!-- Works Grid Container with Notch003 Top-Left Contour -->
       <div class="works-grid-wrapper">
@@ -184,7 +178,40 @@
 
         <!-- Works Grid / Cards Container -->
         <div class="works-grid" id="worksGrid">
-          <!-- Project 1: Nexus AI -->
+          <!-- Project 1: Insightflow -->
+          <article class="project-card" data-category="build">
+            <div class="project-preview preview-insightflow">
+              <img src="project_thumbnail_001.png" alt="Insightflow Project Preview" class="project-preview-img">
+            </div>
+            <div class="project-info">
+              <div class="project-title-wrap-row">
+                <img src="project_logo_001.svg" alt="Insightflow Logo" class="project-logo-badge">
+                <h3 class="project-title">Insightflow</h3>
+              </div>
+              <p class="project-desc">Turn podcasts and audio conversations into actionable key takeaways with AI-powered semantic intelligence and structured transcript synthesis.</p>
+              <div class="project-links">
+                <a href="#demo" class="project-link primary-link" onclick="event.preventDefault()">
+                  <span>Live Demo</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </a>
+                <a href="#source" class="project-link secondary-link" onclick="event.preventDefault()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                    </path>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Nexus AI -->
           <article class="project-card" data-category="build">
             <div class="project-preview preview-nexus">
               <div class="preview-glow"></div>
@@ -643,6 +670,591 @@
           </div>
         </div>
       </div>
+      <!-- /build-mode-only -->
+
+      <!-- Design Mode Content (Logo Gallery) -->
+      <div class="design-mode-only" id="designModeContent">
+        <!-- Section Header -->
+        <div class="works-header design-works-header">
+          <div class="design-badge-wrap">
+            <span class="design-badge">LOGOS &amp; BRAND IDENTITIES</span>
+          </div>
+          <h2 class="works-title">Selected Marks</h2>
+          <p class="works-subtitle">
+            A gallery of vector marks, emblems, and visual identity systems.
+          </p>
+        </div>
+
+        <!-- 3-Column Bento Grid Logo Gallery -->
+        <div class="logo-gallery-grid" role="region" aria-label="Logo Gallery">
+          <!-- Mark 1: Aether (2x2 Featured) -->
+          <div class="logo-gallery-item featured-2x2" tabindex="0" aria-label="Aether Isometric Torus">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" stroke="#06b6d4" stroke-width="6" stroke-linejoin="round" fill="rgba(6, 182, 212, 0.08)" />
+                <polygon points="100,50 145,75 145,125 100,150 55,125 55,75" stroke="#3b82f6" stroke-width="5" stroke-linejoin="round" fill="rgba(59, 130, 246, 0.12)" />
+                <line x1="100" y1="20" x2="100" y2="50" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" />
+                <line x1="170" y1="60" x2="145" y2="75" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" />
+                <line x1="170" y1="140" x2="145" y2="125" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" />
+                <line x1="100" y1="180" x2="100" y2="150" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" />
+                <line x1="30" y1="140" x2="55" y2="125" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" />
+                <line x1="30" y1="60" x2="55" y2="75" stroke="#06b6d4" stroke-width="4" stroke-linecap="round" />
+                <circle cx="100" cy="100" r="14" fill="#38bdf8" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 2: Kinetix (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Kinetix Möbius Ribbon">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <path d="M60,100 C60,65 95,50 120,70 C145,90 155,130 125,145 C95,160 50,135 60,100 Z" stroke="#ec4899" stroke-width="11" stroke-linecap="round" fill="none" />
+                <path d="M140,100 C140,135 105,150 80,130 C55,110 45,70 75,55 C105,40 150,65 140,100 Z" stroke="#f97316" stroke-width="11" stroke-linecap="round" fill="none" />
+                <circle cx="100" cy="100" r="9" fill="#ec4899" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 3: Vanguard (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Vanguard Precision Monogram">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <path d="M100,22 L172,94 L142,124 L100,82 L58,124 L28,94 Z" fill="#10b981" />
+                <path d="M100,78 L150,128 L120,158 L100,138 L80,158 L50,128 Z" fill="#34d399" />
+                <path d="M100,132 L130,162 L100,192 L70,162 Z" fill="#6ee7b7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 4: Lumina (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Lumina Harmonic Wave">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <circle cx="100" cy="100" r="72" stroke="rgba(99, 102, 241, 0.25)" stroke-width="3" stroke-dasharray="6 6" />
+                <path d="M46,100 Q73,25 100,100 T154,100" stroke="#6366f1" stroke-width="9" stroke-linecap="round" fill="none" />
+                <path d="M46,100 Q73,175 100,100 T154,100" stroke="#a855f7" stroke-width="9" stroke-linecap="round" fill="none" />
+                <circle cx="73" cy="62" r="8" fill="#818cf8" />
+                <circle cx="127" cy="138" r="8" fill="#c084fc" />
+                <circle cx="100" cy="100" r="10" fill="#ffffff" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 5: Hyperion (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Hyperion Tesseract Lattice">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <polygon points="100,20 168,59 168,141 100,180 32,141 32,59" stroke="#0284c7" stroke-width="7" fill="rgba(2, 132, 199, 0.06)" />
+                <polygon points="100,58 136,79 136,121 100,142 64,121 64,79" stroke="#38bdf8" stroke-width="6" fill="rgba(56, 189, 248, 0.16)" />
+                <line x1="100" y1="20" x2="100" y2="58" stroke="#38bdf8" stroke-width="4" />
+                <line x1="168" y1="59" x2="136" y2="79" stroke="#38bdf8" stroke-width="4" />
+                <line x1="168" y1="141" x2="136" y2="121" stroke="#38bdf8" stroke-width="4" />
+                <line x1="100" y1="180" x2="100" y2="142" stroke="#38bdf8" stroke-width="4" />
+                <line x1="32" y1="141" x2="64" y2="121" stroke="#38bdf8" stroke-width="4" />
+                <line x1="32" y1="59" x2="64" y2="79" stroke="#38bdf8" stroke-width="4" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 6: Solstice (2x2 Featured) -->
+          <div class="logo-gallery-item featured-2x2" tabindex="0" aria-label="Solstice Eclipse Portal">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <path d="M38,162 L38,90 A62,62 0 0,1 162,90 L162,162 Z" stroke="#d97706" stroke-width="9" stroke-linejoin="round" fill="rgba(217, 119, 6, 0.08)" />
+                <circle cx="100" cy="85" r="32" fill="#fbbf24" />
+                <line x1="24" y1="162" x2="176" y2="162" stroke="#fbbf24" stroke-width="7" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 7: Nova (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Nova Quantum Prism">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <polygon points="100,15 118,82 185,100 118,118 100,185 82,118 15,100 82,82" fill="#e11d48" stroke="#f43f5e" stroke-width="3" />
+                <circle cx="100" cy="100" r="16" fill="#ffffff" />
+                <circle cx="100" cy="100" r="28" stroke="#f43f5e" stroke-width="3" stroke-dasharray="4 4" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 8: Chroma (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Chroma Tri-Ribbon">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <polygon points="100,28 172,152 28,152" stroke="#8b5cf6" stroke-width="10" stroke-linejoin="round" fill="none" />
+                <polygon points="100,60 148,142 52,142" stroke="#ec4899" stroke-width="7" stroke-linejoin="round" fill="rgba(236, 72, 153, 0.1)" />
+                <circle cx="100" cy="115" r="14" fill="#06b6d4" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 9: Apex Crystal (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Apex Dual-Facet Crystal">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <polygon points="100,25 160,85 100,175 40,85" stroke="#3b82f6" stroke-width="6" fill="rgba(59, 130, 246, 0.08)" />
+                <line x1="40" y1="85" x2="160" y2="85" stroke="#60a5fa" stroke-width="5" />
+                <line x1="100" y1="25" x2="100" y2="175" stroke="#93c5fd" stroke-width="4" stroke-dasharray="5 5" />
+                <circle cx="100" cy="85" r="12" fill="#38bdf8" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 10: Nexus (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Nexus Neural Node">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <circle cx="100" cy="100" r="65" stroke="rgba(16, 185, 129, 0.3)" stroke-width="4" />
+                <circle cx="100" cy="50" r="14" fill="#10b981" />
+                <circle cx="58" cy="125" r="14" fill="#34d399" />
+                <circle cx="142" cy="125" r="14" fill="#059669" />
+                <line x1="100" y1="50" x2="58" y2="125" stroke="#10b981" stroke-width="5" />
+                <line x1="58" y1="125" x2="142" y2="125" stroke="#10b981" stroke-width="5" />
+                <line x1="142" y1="125" x2="100" y2="50" stroke="#10b981" stroke-width="5" />
+                <circle cx="100" cy="100" r="8" fill="#ffffff" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Mark 11: Orbit (1x1) -->
+          <div class="logo-gallery-item" tabindex="0" aria-label="Orbit Planetary Rings">
+            <div class="logo-gallery-svg-wrap">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-gallery-svg">
+                <circle cx="100" cy="100" r="32" fill="#eab308" />
+                <ellipse cx="100" cy="100" rx="76" ry="24" stroke="#fef08a" stroke-width="6" transform="rotate(-28 100 100)" />
+                <circle cx="152" cy="72" r="8" fill="#ffffff" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Motion Design & After Effects Animations Section -->
+        <div class="motion-section-wrapper" id="motionSection">
+          <!-- Section Header -->
+          <div class="works-header motion-works-header">
+            <div class="design-badge-wrap">
+              <span class="design-badge motion-badge">MOTION DESIGN &amp; VFX</span>
+            </div>
+            <h2 class="works-title">Motion Graphics &amp; 3D</h2>
+            <p class="works-subtitle">
+              Keyframed animations, 3D simulations, visual effects, and dynamic micro-interactions crafted in After Effects and motion suites.
+            </p>
+          </div>
+
+          <!-- Motion Grid -->
+          <div class="motion-grid">
+            <!-- Motion 1: Quantum -->
+            <article class="motion-card">
+              <div class="motion-card-viewport motion-preview-quantum">
+                <div class="motion-scene motion-scene-quantum">
+                  <div class="quantum-core-glow"></div>
+                  <div class="quantum-ring ring-1"></div>
+                  <div class="quantum-ring ring-2"></div>
+                  <div class="quantum-ring ring-3"></div>
+                </div>
+                <div class="motion-viewport-badges">
+                  <span class="motion-badge-pill motion-fps-pill">60 FPS</span>
+                  <span class="motion-badge-pill motion-time-pill">0:15 Loop</span>
+                </div>
+                <div class="motion-play-overlay">
+                  <div class="motion-play-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </div>
+                  <span class="motion-play-text">After Effects Composition</span>
+                </div>
+              </div>
+              <div class="motion-card-body">
+                <h3 class="motion-card-title">Quantum Core Simulation</h3>
+                <p class="motion-card-desc">3D particle physics simulation with dynamic gravitational lens distortion, chromatic dispersion, and volumetric glow compositing.</p>
+                <div class="motion-tools-row">
+                  <span class="motion-tool-tag">After Effects</span>
+                  <span class="motion-tool-tag">Cinema 4D</span>
+                  <span class="motion-tool-tag">Trapcode</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Motion 2: HUD -->
+            <article class="motion-card">
+              <div class="motion-card-viewport motion-preview-hud">
+                <div class="motion-scene motion-scene-hud">
+                  <div class="hud-grid-bg"></div>
+                  <div class="hud-radar-sweep"></div>
+                  <div class="hud-crosshair"></div>
+                  <div class="hud-circle-ring"></div>
+                  <div class="hud-telemetry-text">
+                    <span>SCAN: ACTIVE</span>
+                    <span>FPS: 60.0</span>
+                  </div>
+                </div>
+                <div class="motion-viewport-badges">
+                  <span class="motion-badge-pill motion-fps-pill">60 FPS</span>
+                  <span class="motion-badge-pill motion-time-pill">0:20 Loop</span>
+                </div>
+                <div class="motion-play-overlay">
+                  <div class="motion-play-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </div>
+                  <span class="motion-play-text">FUI Telemetry System</span>
+                </div>
+              </div>
+              <div class="motion-card-body">
+                <h3 class="motion-card-title">Futuristic HUD &amp; Hologram Telemetry</h3>
+                <p class="motion-card-desc">FUI sci-fi interface animation featuring procedural holographic telemetry, scanning radar sweeps, and glitch keyframing.</p>
+                <div class="motion-tools-row">
+                  <span class="motion-tool-tag">After Effects</span>
+                  <span class="motion-tool-tag">Illustrator</span>
+                  <span class="motion-tool-tag">Expressions</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Motion 3: Typo -->
+            <article class="motion-card">
+              <div class="motion-card-viewport motion-preview-typo">
+                <div class="motion-scene motion-scene-typo">
+                  <div class="typo-kinetic-row row-1">
+                    <span>CREATE • EXPLORE • DESIGN •</span>
+                  </div>
+                  <div class="typo-kinetic-row row-2">
+                    <span>MOTION • KEYFRAMES • RHYTHM •</span>
+                  </div>
+                  <div class="typo-kinetic-badge">AE COMP</div>
+                </div>
+                <div class="motion-viewport-badges">
+                  <span class="motion-badge-pill motion-fps-pill">60 FPS</span>
+                  <span class="motion-badge-pill motion-time-pill">0:12 Loop</span>
+                </div>
+                <div class="motion-play-overlay">
+                  <div class="motion-play-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </div>
+                  <span class="motion-play-text">Kinetic Type System</span>
+                </div>
+              </div>
+              <div class="motion-card-body">
+                <h3 class="motion-card-title">Kinetic Typography &amp; Title Reveal</h3>
+                <p class="motion-card-desc">Syncopated typographic rhythm with dynamic variable font axis distortion, geometric split-screen wipe transitions, and camera tracking.</p>
+                <div class="motion-tools-row">
+                  <span class="motion-tool-tag">After Effects</span>
+                  <span class="motion-tool-tag">Premiere Pro</span>
+                  <span class="motion-tool-tag">Type Rig</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Motion 4: 3D Glass Caustics -->
+            <article class="motion-card">
+              <div class="motion-card-viewport motion-preview-glass">
+                <div class="motion-scene motion-scene-glass">
+                  <div class="glass-orb-container">
+                    <div class="glass-orb-body"></div>
+                    <div class="glass-caustic-light"></div>
+                    <div class="glass-reflection-sweep"></div>
+                  </div>
+                </div>
+                <div class="motion-viewport-badges">
+                  <span class="motion-badge-pill motion-fps-pill">60 FPS</span>
+                  <span class="motion-badge-pill motion-time-pill">0:18 Loop</span>
+                </div>
+                <div class="motion-play-overlay">
+                  <div class="motion-play-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </div>
+                  <span class="motion-play-text">3D Caustics Simulation</span>
+                </div>
+              </div>
+              <div class="motion-card-body">
+                <h3 class="motion-card-title">3D Glass Caustics &amp; Fluid Dynamics</h3>
+                <p class="motion-card-desc">Raytraced chromatic refraction with liquid surface deformation, caustics light projection, and post-processed optical flares.</p>
+                <div class="motion-tools-row">
+                  <span class="motion-tool-tag">After Effects</span>
+                  <span class="motion-tool-tag">Blender</span>
+                  <span class="motion-tool-tag">Octane</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Illustrations & Vector Art Section -->
+        <div class="illustrations-section-wrapper" id="illustrationsSection">
+          <!-- Section Header -->
+          <div class="works-header ill-works-header">
+            <div class="design-badge-wrap">
+              <span class="design-badge ill-badge">ILLUSTRATIONS &amp; VECTOR ART</span>
+            </div>
+            <h2 class="works-title">Illustrations &amp; Digital Art</h2>
+            <p class="works-subtitle">
+              Vector artworks, sci-fi concept environments, isometric scenes, and editorial illustrations crafted in Adobe Illustrator.
+            </p>
+          </div>
+
+          <!-- Illustrations Grid -->
+          <div class="illustrations-grid">
+            <!-- Ill 1: Cyberpunk -->
+            <article class="illustration-card">
+              <div class="illustration-media-wrap">
+                <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration-svg">
+                  <rect width="320" height="220" fill="#090d16" rx="14" />
+                  <line x1="0" y1="180" x2="320" y2="180" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1" />
+                  <line x1="0" y1="195" x2="320" y2="195" stroke="rgba(6, 182, 212, 0.3)" stroke-width="1" />
+                  <line x1="0" y1="210" x2="320" y2="210" stroke="rgba(6, 182, 212, 0.4)" stroke-width="1" />
+                  <rect x="40" y="70" width="44" height="110" fill="#1e1b4b" stroke="#6366f1" stroke-width="2" />
+                  <polygon points="160,20 200,60 200,180 120,180 120,60" fill="#0f172a" stroke="#06b6d4" stroke-width="2.5" />
+                  <line x1="160" y1="20" x2="160" y2="180" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="3 3" />
+                  <rect x="230" y="55" width="50" height="125" fill="#18181b" stroke="#ec4899" stroke-width="2" />
+                  <line x1="84" y1="100" x2="120" y2="100" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" />
+                  <line x1="200" y1="95" x2="230" y2="95" stroke="#f97316" stroke-width="4" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="illustration-card-body">
+                <div class="ill-cat-tag">Isometric &amp; Sci-Fi</div>
+                <h3 class="illustration-title">Cyberpunk Neon Metropolis</h3>
+                <p class="illustration-desc">Isometric cityscape exploring high-density vertical architecture and moody neon backlighting.</p>
+                <div class="ill-palette-row">
+                  <span class="brand-color-swatch" style="background-color: #0f172a"></span>
+                  <span class="brand-color-swatch" style="background-color: #06b6d4"></span>
+                  <span class="brand-color-swatch" style="background-color: #ec4899"></span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Ill 2: Deep Space -->
+            <article class="illustration-card">
+              <div class="illustration-media-wrap">
+                <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration-svg">
+                  <rect width="320" height="220" fill="#020617" rx="14" />
+                  <circle cx="160" cy="110" r="50" fill="#3b82f6" />
+                  <ellipse cx="160" cy="110" rx="90" ry="22" stroke="#38bdf8" stroke-width="4" transform="rotate(-20 160 110)" />
+                  <circle cx="240" cy="65" r="12" fill="#f43f5e" />
+                </svg>
+              </div>
+              <div class="illustration-card-body">
+                <div class="ill-cat-tag">Cosmic &amp; Sci-Fi</div>
+                <h3 class="illustration-title">Deep Space Horizon Explorer</h3>
+                <p class="illustration-desc">Astronomical vector exploration depicting orbital planetary alignments and gravitational rings.</p>
+                <div class="ill-palette-row">
+                  <span class="brand-color-swatch" style="background-color: #030712"></span>
+                  <span class="brand-color-swatch" style="background-color: #3b82f6"></span>
+                  <span class="brand-color-swatch" style="background-color: #f43f5e"></span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- UI / UX & Digital Products Section -->
+        <div class="uiux-section-wrapper" id="uiuxSection">
+          <!-- Section Header -->
+          <div class="works-header uiux-works-header">
+            <div class="design-badge-wrap">
+              <span class="design-badge uiux-badge">PRODUCT &amp; UI/UX DESIGN</span>
+            </div>
+            <h2 class="works-title">UI / UX &amp; Digital Products</h2>
+            <p class="works-subtitle">
+              Design systems, mobile application concepts, enterprise SaaS platforms, and responsive user flows engineered with mathematical precision in Figma.
+            </p>
+          </div>
+
+          <!-- UI/UX Grid -->
+          <div class="uiux-grid">
+            <!-- UI 1: Nova Pay -->
+            <article class="uiux-card">
+              <div class="uiux-card-viewport">
+                <div class="ui-mockup-screen screen-novapay">
+                  <div class="ui-phone-notch"></div>
+                  <div class="ui-screen-header">
+                    <div class="ui-user-avatar"></div>
+                    <div class="ui-badge-pill">PREMIUM</div>
+                  </div>
+                  <div class="ui-balance-card">
+                    <span class="ui-bal-label">TOTAL ASSETS</span>
+                    <span class="ui-bal-amount">$84,290.50</span>
+                    <span class="ui-bal-growth">+14.8% this month</span>
+                  </div>
+                  <div class="ui-actions-row">
+                    <div class="ui-action-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Send</div>
+                    <div class="ui-action-btn"><i class="fa-solid fa-arrow-down"></i> Receive</div>
+                    <div class="ui-action-btn"><i class="fa-solid fa-chart-pie"></i> Invest</div>
+                  </div>
+                </div>
+              </div>
+              <div class="uiux-card-body">
+                <div class="uiux-cat-row">
+                  <span class="uiux-cat-tag">FinTech Mobile App</span>
+                  <span class="uiux-platform-tag">iOS &amp; Android • Figma</span>
+                </div>
+                <h3 class="uiux-title">Nova Pay — Neobank &amp; Wealth OS</h3>
+                <p class="uiux-desc">High-trust mobile banking experience featuring frictionless global transfers and real-time portfolio allocations.</p>
+                <div class="uiux-tags-row">
+                  <span class="uiux-tag">Design System</span>
+                  <span class="uiux-tag">User Flow</span>
+                  <span class="uiux-tag">Interactive Prototype</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- UI 2: Chronos OS -->
+            <article class="uiux-card">
+              <div class="uiux-card-viewport">
+                <div class="ui-mockup-screen screen-chronos">
+                  <div class="ui-dash-topbar">
+                    <span class="ui-crumb active">Production Cluster</span>
+                    <span class="ui-status-dot online">Healthy (99.99%)</span>
+                  </div>
+                  <div class="ui-dash-metric-cards">
+                    <div class="ui-dash-metric">
+                      <span class="metric-label">Latency p99</span>
+                      <span class="metric-val text-cyan">1.8 ms</span>
+                    </div>
+                    <div class="ui-dash-metric">
+                      <span class="metric-label">Throughput</span>
+                      <span class="metric-val text-emerald">124k req/s</span>
+                    </div>
+                  </div>
+                  <div class="ui-dash-chart-frame">
+                    <div class="ui-chart-bar" style="height: 60%"></div>
+                    <div class="ui-chart-bar" style="height: 85%"></div>
+                    <div class="ui-chart-bar" style="height: 40%"></div>
+                    <div class="ui-chart-bar" style="height: 95%"></div>
+                    <div class="ui-chart-bar" style="height: 70%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="uiux-card-body">
+                <div class="uiux-cat-row">
+                  <span class="uiux-cat-tag">Enterprise SaaS Dashboard</span>
+                  <span class="uiux-platform-tag">Web Desktop • Figma</span>
+                </div>
+                <h3 class="uiux-title">Chronos OS — Distributed Cloud Analytics</h3>
+                <p class="uiux-desc">A unified telemetry dashboard designed for infrastructure engineers to visualize distributed mesh topology.</p>
+                <div class="uiux-tags-row">
+                  <span class="uiux-tag">Dashboard UI</span>
+                  <span class="uiux-tag">Data Viz</span>
+                  <span class="uiux-tag">Component Library</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Creative Tools & Stack Section -->
+        <div class="tools-section-wrapper" id="designToolsSection">
+          <!-- Section Header -->
+          <div class="works-header tools-works-header">
+            <div class="design-badge-wrap">
+              <span class="design-badge tools-badge">CREATIVE TOOLKIT</span>
+            </div>
+            <h2 class="works-title">Tools I'm Comfortable With</h2>
+            <p class="works-subtitle">
+              The software suites, 3D engines, motion suites, and frontend technologies I leverage to craft visual experiences.
+            </p>
+          </div>
+
+          <!-- Tools Category Groups -->
+          <div class="tools-categories-list">
+            <!-- Cat 1: UI/UX -->
+            <div class="tool-category-card">
+              <div class="tool-cat-header">
+                <i class="fa-solid fa-layer-group tool-cat-icon"></i>
+                <h3 class="tool-cat-title">UI / UX &amp; Prototyping</h3>
+              </div>
+              <div class="tool-items-grid">
+                <div class="tool-pill-item">
+                  <div class="tool-pill-top">
+                    <div class="tool-name-wrap">
+                      <i class="fa-brands fa-figma tool-pill-icon"></i>
+                      <span class="tool-name">Figma</span>
+                    </div>
+                    <span class="tool-level-badge level-expert">Expert</span>
+                  </div>
+                  <p class="tool-usecase">Design systems, tokens, components &amp; interactive prototypes</p>
+                </div>
+                <div class="tool-pill-item">
+                  <div class="tool-pill-top">
+                    <div class="tool-name-wrap">
+                      <i class="fa-solid fa-cube tool-pill-icon"></i>
+                      <span class="tool-name">Framer</span>
+                    </div>
+                    <span class="tool-level-badge level-advanced">Advanced</span>
+                  </div>
+                  <p class="tool-usecase">Production-ready responsive layouts &amp; scroll interactions</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cat 2: Motion -->
+            <div class="tool-category-card">
+              <div class="tool-cat-header">
+                <i class="fa-solid fa-film tool-cat-icon"></i>
+                <h3 class="tool-cat-title">Motion Graphics &amp; 3D</h3>
+              </div>
+              <div class="tool-items-grid">
+                <div class="tool-pill-item">
+                  <div class="tool-pill-top">
+                    <div class="tool-name-wrap">
+                      <i class="fa-solid fa-wand-magic-sparkles tool-pill-icon"></i>
+                      <span class="tool-name">After Effects</span>
+                    </div>
+                    <span class="tool-level-badge level-expert">Expert</span>
+                  </div>
+                  <p class="tool-usecase">Kinetic typography, motion branding &amp; particle VFX</p>
+                </div>
+                <div class="tool-pill-item">
+                  <div class="tool-pill-top">
+                    <div class="tool-name-wrap">
+                      <i class="fa-solid fa-cubes tool-pill-icon"></i>
+                      <span class="tool-name">Cinema 4D / Blender</span>
+                    </div>
+                    <span class="tool-level-badge level-advanced">Advanced</span>
+                  </div>
+                  <p class="tool-usecase">3D motion design, geometric polyhedra &amp; caustics</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cat 3: Vector & Visual Art -->
+            <div class="tool-category-card">
+              <div class="tool-cat-header">
+                <i class="fa-solid fa-bezier-curve tool-cat-icon"></i>
+                <h3 class="tool-cat-title">Visual Identity &amp; Vector Art</h3>
+              </div>
+              <div class="tool-items-grid">
+                <div class="tool-pill-item">
+                  <div class="tool-pill-top">
+                    <div class="tool-name-wrap">
+                      <i class="fa-solid fa-pen-nib tool-pill-icon"></i>
+                      <span class="tool-name">Adobe Illustrator</span>
+                    </div>
+                    <span class="tool-level-badge level-expert">Expert</span>
+                  </div>
+                  <p class="tool-usecase">Vector logomarks, geometric grids &amp; typography</p>
+                </div>
+                <div class="tool-pill-item">
+                  <div class="tool-pill-top">
+                    <div class="tool-name-wrap">
+                      <i class="fa-solid fa-image tool-pill-icon"></i>
+                      <span class="tool-name">Adobe Photoshop</span>
+                    </div>
+                    <span class="tool-level-badge level-advanced">Advanced</span>
+                  </div>
+                  <p class="tool-usecase">Image compositing, lighting textures &amp; mockups</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- About -->
       <div class="content-section" id="about">
@@ -792,6 +1404,15 @@
           </div>
         </div>
       </div>
+
+      <!-- Works Footer -->
+      <footer class="works-footer">
+        <div class="footer-copyright-row">
+          <span class="footer-copy">© 2026 Sudarshana Wijerathna</span>
+          <span class="footer-sep">·</span>
+          <span class="footer-rights">All rights reserved</span>
+        </div>
+      </footer>
     </section>
   </div>
   <script src="script.js"></script>

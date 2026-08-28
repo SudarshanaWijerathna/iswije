@@ -10,12 +10,63 @@ export function ModeSwitcher({ onModeChange }: ModeSwitcherProps) {
   const [mode, setMode] = useState<'build' | 'design'>('build');
 
   const switchMode = (newMode: 'build' | 'design') => {
+    if (newMode === mode) return;
     setMode(newMode);
     document.body.setAttribute('data-mode', newMode);
     const canvas = document.getElementById('canvasInner');
     if (canvas) {
       canvas.setAttribute('data-mode', newMode);
     }
+
+    // Trigger section sliding animations
+    if (newMode === 'design') {
+      document.body.classList.remove('animating-to-build');
+      document.body.classList.add('animating-to-design');
+    } else {
+      document.body.classList.remove('animating-to-design');
+      document.body.classList.add('animating-to-build');
+    }
+    setTimeout(() => {
+      document.body.classList.remove('animating-to-design', 'animating-to-build');
+    }, 550);
+
+    // Trigger logo wipe animation & transition video
+    const heroLogo = document.getElementById('heroLogo');
+    if (heroLogo) {
+      if (newMode === 'design') {
+        heroLogo.classList.remove('transition-to-build');
+        heroLogo.classList.add('transition-to-design');
+      } else {
+        heroLogo.classList.remove('transition-to-design');
+        heroLogo.classList.add('transition-to-build');
+      }
+      setTimeout(() => {
+        heroLogo.classList.remove('transition-to-design', 'transition-to-build');
+      }, 1050);
+    }
+
+    const video = document.getElementById('logoTransitionVideo') as HTMLVideoElement | null;
+    if (video) {
+      video.classList.add('playing');
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+      const onEnded = () => {
+        video.classList.remove('playing');
+      };
+      video.addEventListener('ended', onEnded, { once: true });
+      setTimeout(() => {
+        video.classList.remove('playing');
+      }, 1050);
+    }
+    // Update Favicon based on active mode
+    const faviconHref = newMode === 'design' ? '/logo-designmode.svg' : '/logo-buildmode.svg';
+    const favicons = document.querySelectorAll("link[rel*='icon']");
+    favicons.forEach((fav: any) => {
+      fav.href = faviconHref;
+    });
     if (onModeChange) {
       onModeChange(newMode);
     }

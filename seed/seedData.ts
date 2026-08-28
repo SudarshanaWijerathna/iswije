@@ -37,7 +37,8 @@ export async function seed() {
         ],
         aboutHighlight: "Today, I sit somewhere between the two. I build technical products with a designer's instinct for how they should look, communicate and feel.",
         contactPrompt: 'Have something worth building?',
-        footerCopy: 'Crafted with precision & modern web standards.',
+        footerCopy: '© 2026 Sudarshana Wijerathna',
+        footerRights: 'All rights reserved',
       },
     });
   } catch (e) {
@@ -48,17 +49,21 @@ export async function seed() {
   try {
     const existingProjects = await payload.find({ collection: 'projects' });
     if (existingProjects.totalDocs === 0) {
-      // Featured: Insightflow
+      // Project 1: Insightflow
       await payload.create({
         collection: 'projects',
         data: {
           title: 'Insightflow',
-          isFeatured: true,
+          isFeatured: false,
           category: 'build',
-          description: 'AI-driven workflow platform and visual data canvas.',
+          previewType: 'image',
+          description: 'Turn podcasts and audio conversations into actionable key takeaways with AI-powered semantic intelligence and structured transcript synthesis.',
           logoStaticUrl: '/project_logo_001.svg',
           thumbnailStaticUrl: '/project_thumbnail_001.png',
-          order: 0,
+          liveDemoUrl: '#demo',
+          liveDemoText: 'Live Demo',
+          githubUrl: '#source',
+          order: 1,
         },
       });
 

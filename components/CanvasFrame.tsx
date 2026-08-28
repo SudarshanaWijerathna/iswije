@@ -29,8 +29,18 @@ export function CanvasFrame({ profile }: CanvasFrameProps) {
 
         {/* Top Navigation / Logo & Social Bar */}
         <div className="hero-top-bar">
-          <div className="hero-logo" aria-label="Logo">
-            <img src="/logo-buildmode.svg" alt="Logo" className="hero-logo-img" />
+          <div className="hero-logo" aria-label="Logo" id="heroLogo">
+            <video
+              id="logoTransitionVideo"
+              className="hero-logo-transition-video"
+              src="/logo_transition.webm"
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+            />
+            <img src="/logo-buildmode.svg" alt="Logo Build" className="hero-logo-img logo-build" />
+            <img src="/logo-designmode.svg" alt="Logo Design" className="hero-logo-img logo-design" />
           </div>
           <a
             href={linkedinUrl}
@@ -43,8 +53,9 @@ export function CanvasFrame({ profile }: CanvasFrameProps) {
           </a>
         </div>
 
-        {/* Background Giant Logo Watermark (Behind Noise Overlay) */}
-        <img src="/logo-buildmode.svg" alt="" className="bg-logo-watermark" aria-hidden="true" />
+        {/* Background Giant Logo Watermarks (Behind Noise Overlay) */}
+        <img src="/logo-buildmode.svg" alt="" className="bg-logo-watermark watermark-build" aria-hidden="true" />
+        <img src="/logo-designmode-white.svg" alt="" className="bg-logo-watermark watermark-design" aria-hidden="true" />
 
         {/* Noise Texture Overlay (behind portrait) */}
         <img src="/noiseoverlay001.jpg" alt="Noise Texture Overlay" className="noise-overlay" id="noiseOverlay" />
