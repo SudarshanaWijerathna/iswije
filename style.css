@@ -5016,6 +5016,361 @@ body.animating-to-build .build-mode-only {
 }
 
 /* ==========================================================================
+   Engineering Pipeline 3D Orbit & Tech Stack Section
+   ========================================================================== */
+.how-i-build-section-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 36px;
+}
+
+.pipeline-section-wrapper {
+  margin-top: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #b4b2b3 50%, #b4b2b3 100%);
+  padding: 32px 0 36px;
+  border-radius: 24px;
+}
+
+.pipeline-works-header {
+  margin-bottom: 20px;
+  padding: 0 16px;
+}
+
+.pipeline-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  margin-bottom: 12px;
+}
+
+.pipeline-portrait-showcase {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px 24px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.pipeline-orbit-carousel {
+  animation: orbitSpinReverse 16s linear infinite;
+}
+
+@keyframes orbitSpinReverse {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(12deg) rotateX(-10deg) rotateY(360deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateZ(12deg) rotateX(-10deg) rotateY(0deg);
+  }
+}
+
+.pipeline-orbit-card {
+  width: 76px;
+  height: 76px;
+  margin-top: -38px;
+  margin-left: -38px;
+}
+
+.pipeline-step-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 10px 24px -4px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 6px;
+  pointer-events: none;
+  cursor: default;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}
+
+.pipeline-step-num {
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 8.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 1px;
+}
+
+.pipeline-step-icon {
+  font-size: 17px;
+  color: #10b981;
+  margin: 2px 0 3px;
+  filter: drop-shadow(0 2px 6px rgba(16, 185, 129, 0.45));
+}
+
+.pipeline-step-name {
+  font-family: 'Google Sans Flex', 'Google Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.4px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   4-Column Parallax Tech Stack Showcase
+   ========================================================================== */
+.tech-showcase-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px 16px 20px;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tech-showcase-content {
+  display: contents;
+}
+
+.tech-showcase-header {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.tech-showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.tech-showcase-badge i {
+  font-size: 9px;
+  color: #64748b;
+}
+
+.tech-showcase-title {
+  font-family: 'Google Sans Flex', 'Google Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.6px;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.tech-showcase-desc {
+  order: 3;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #64748b;
+  margin: 0;
+}
+
+.tech-showcase-cta {
+  order: 4;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.tech-showcase-cta:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+.tech-showcase-cta i {
+  font-size: 10px;
+  transition: transform 0.25s ease;
+}
+
+/* Expandable Full Stack Drawer */
+.tech-expanded-drawer {
+  order: 5;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, margin-top 0.3s ease;
+  width: 100%;
+  margin-top: 0;
+}
+
+.tech-expanded-drawer.open {
+  max-height: 480px;
+  opacity: 1;
+  margin-top: 14px;
+}
+
+.tech-expanded-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: rgba(248, 250, 252, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.tech-expanded-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.tech-expanded-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tech-expanded-cat {
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.tech-expanded-divider {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.tech-expanded-words {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: #475569;
+}
+
+.tech-word {
+  color: #334155;
+  font-weight: 450;
+}
+
+.tech-dot {
+  color: #cbd5e1;
+  font-weight: 700;
+  font-size: 13px;
+  user-select: none;
+}
+
+/* 4 Multi-Directional Parallax Columns Stage (Directly below Title on mobile) */
+.tech-columns-stage {
+  order: 2;
+  position: relative;
+  width: 100%;
+  height: 350px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(248, 250, 252, 0.9) 0%, rgba(241, 245, 249, 0.6) 100%);
+  border-radius: 22px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  margin: 4px 0 2px;
+}
+
+.tech-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.tech-icon-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 64px;
+  max-height: 64px;
+  margin: 0 auto;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow:
+    0 10px 24px -3px rgba(0, 0, 0, 0.07),
+    0 2px 6px -1px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.tech-icon-card:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 14px 28px -2px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.tech-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ==========================================================================
    TABLET RESPONSIVE STYLES (min-width: 768px)
    ========================================================================== */
 @media (min-width: 768px) {
@@ -5121,6 +5476,12 @@ body.animating-to-build .build-mode-only {
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 8px;
+  }
+
+  .stack-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 
   .logo-gallery-grid {
@@ -5526,6 +5887,85 @@ body.animating-to-build .build-mode-only {
 
   .tools-portrait-img {
     max-height: 520px;
+  }
+
+  .pipeline-orbit-card {
+    width: 94px;
+    height: 94px;
+    margin-top: -47px;
+    margin-left: -47px;
+  }
+
+  .pipeline-step-inner {
+    border-radius: 20px;
+    padding: 10px 8px;
+  }
+
+  .pipeline-step-num {
+    font-size: 9.5px;
+  }
+
+  .pipeline-step-icon {
+    font-size: 22px;
+    margin: 4px 0 3px;
+  }
+
+  .pipeline-step-name {
+    font-size: 11px;
+  }
+
+  .tech-showcase-section {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    align-items: center;
+    gap: 48px;
+    padding: 36px 32px 32px;
+  }
+
+  .tech-showcase-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    order: unset;
+  }
+
+  .tech-showcase-header {
+    order: unset;
+  }
+
+  .tech-showcase-title {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+
+  .tech-showcase-desc {
+    order: unset;
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+
+  .tech-showcase-cta {
+    order: unset;
+  }
+
+  .tech-expanded-drawer {
+    order: unset;
+  }
+
+  .tech-columns-stage {
+    order: unset;
+    height: 420px;
+    gap: 16px;
+    padding: 0 14px;
+    margin: 0;
+  }
+
+  .tech-icon-card {
+    max-width: 72px;
+    max-height: 72px;
+    border-radius: 18px;
+    padding: 14px;
   }
 
   /* About Section 2-Column Split Desktop */
