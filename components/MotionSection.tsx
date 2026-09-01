@@ -11,85 +11,20 @@ export interface MotionProjectItem {
   description: string;
   previewClass: string;
   animatedGraphic: React.ReactNode;
+  videoSrc?: string;
 }
 
 const MOTION_PROJECTS: MotionProjectItem[] = [
   {
-    id: 'motion-1',
-    title: 'Quantum Core Simulation',
-    tools: ['After Effects', 'Cinema 4D', 'Red Giant Trapcode'],
+    id: 'motion-0',
+    title: 'Black Hole — Illustrated Motion Study',
+    tools: ['After Effects', 'Illustrator'],
     duration: '0:15 Loop',
-    fps: '60 FPS',
-    description: '3D particle physics simulation with dynamic gravitational lens distortion, chromatic dispersion, and volumetric glow compositing.',
-    previewClass: 'motion-preview-quantum',
-    animatedGraphic: (
-      <div className="motion-scene motion-scene-quantum">
-        <div className="quantum-core-glow"></div>
-        <div className="quantum-ring ring-1"></div>
-        <div className="quantum-ring ring-2"></div>
-        <div className="quantum-ring ring-3"></div>
-        <div className="quantum-particle-burst"></div>
-      </div>
-    ),
-  },
-  {
-    id: 'motion-2',
-    title: 'Futuristic HUD & Hologram Telemetry',
-    tools: ['After Effects', 'Illustrator', 'Expressions'],
-    duration: '0:20 Loop',
-    fps: '60 FPS',
-    description: 'FUI sci-fi interface animation featuring procedural holographic telemetry, scanning radar sweeps, and glitch keyframing.',
-    previewClass: 'motion-preview-hud',
-    animatedGraphic: (
-      <div className="motion-scene motion-scene-hud">
-        <div className="hud-grid-bg"></div>
-        <div className="hud-radar-sweep"></div>
-        <div className="hud-crosshair"></div>
-        <div className="hud-circle-ring"></div>
-        <div className="hud-telemetry-text">
-          <span>SCAN: ACTIVE</span>
-          <span>FPS: 60.0</span>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 'motion-3',
-    title: 'Kinetic Typography & Title Reveal',
-    tools: ['After Effects', 'Premiere Pro', 'Type Rig'],
-    duration: '0:12 Loop',
-    fps: '60 FPS',
-    description: 'Syncopated typographic rhythm with dynamic variable font axis distortion, geometric split-screen wipe transitions, and camera tracking.',
-    previewClass: 'motion-preview-typo',
-    animatedGraphic: (
-      <div className="motion-scene motion-scene-typo">
-        <div className="typo-kinetic-row row-1">
-          <span>CREATE • EXPLORE • DESIGN •</span>
-        </div>
-        <div className="typo-kinetic-row row-2">
-          <span>MOTION • KEYFRAMES • RHYTHM •</span>
-        </div>
-        <div className="typo-kinetic-badge">AE COMP</div>
-      </div>
-    ),
-  },
-  {
-    id: 'motion-4',
-    title: '3D Glass Caustics & Fluid Dynamics',
-    tools: ['After Effects', 'Blender', 'Octane Render'],
-    duration: '0:18 Loop',
-    fps: '60 FPS',
-    description: 'Raytraced chromatic refraction with liquid surface deformation, caustics light projection, and post-processed optical flares.',
-    previewClass: 'motion-preview-glass',
-    animatedGraphic: (
-      <div className="motion-scene motion-scene-glass">
-        <div className="glass-orb-container">
-          <div className="glass-orb-body"></div>
-          <div className="glass-caustic-light"></div>
-          <div className="glass-reflection-sweep"></div>
-        </div>
-      </div>
-    ),
+    fps: '24 FPS',
+    description: 'Stylised motion graphic exploring black hole anatomy — layered accretion disk strokes, photon ring glow, and event horizon depth rendered in a flat illustrated design language.',
+    previewClass: 'motion-preview-blackhole',
+    videoSrc: '/black_hole_detailed.webm',
+    animatedGraphic: null,
   },
 ];
 
@@ -126,37 +61,25 @@ export function MotionSection() {
               }
             }}
           >
-            {/* Visual Screen Area */}
+            {/* Visual Screen Area — full card, no body below */}
             <div className={`motion-card-viewport ${item.previewClass}`}>
-              {item.animatedGraphic}
+              {item.videoSrc ? (
+                <video
+                  src={item.videoSrc}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="motion-card-video"
+                />
+              ) : (
+                item.animatedGraphic
+              )}
 
-              {/* Status Badges */}
-              <div className="motion-viewport-badges">
-                <span className="motion-badge-pill motion-fps-pill">{item.fps}</span>
-                <span className="motion-badge-pill motion-time-pill">{item.duration}</span>
-              </div>
-
-              {/* Play Overlay */}
-              <div className="motion-play-overlay">
-                <div className="motion-play-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                </div>
-                <span className="motion-play-text">Inspect Composition</span>
-              </div>
-            </div>
-
-            {/* Content Area */}
-            <div className="motion-card-body">
-              <h3 className="motion-card-title">{item.title}</h3>
-              <p className="motion-card-desc">{item.description}</p>
-              <div className="motion-tools-row">
-                {item.tools.map((tool, idx) => (
-                  <span key={idx} className="motion-tool-tag">
-                    {tool}
-                  </span>
-                ))}
+              {/* Hover Info Overlay */}
+              <div className="motion-hover-overlay">
+                <h3 className="motion-hover-title">{item.title}</h3>
+                <p className="motion-hover-desc">{item.description}</p>
               </div>
             </div>
           </article>
@@ -192,7 +115,18 @@ export function MotionSection() {
 
             {/* Large Stage Viewport */}
             <div className={`motion-modal-stage ${activeMotion.previewClass}`}>
-              {activeMotion.animatedGraphic}
+              {activeMotion.videoSrc ? (
+                <video
+                  src={activeMotion.videoSrc}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="motion-modal-video"
+                />
+              ) : (
+                activeMotion.animatedGraphic
+              )}
             </div>
 
             <div className="motion-modal-specs-grid">
