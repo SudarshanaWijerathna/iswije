@@ -46,7 +46,7 @@ export function DesignToolsSection() {
                     '--item-angle': `${itemAngle}deg`,
                   } as React.CSSProperties}
                 >
-                  <div className="orbit-card-inner" title={item.alt}>
+                  <div className="orbit-card-inner">
                     <img
                       src={item.src}
                       alt={item.alt}

@@ -4950,11 +4950,6 @@ body.animating-to-build .build-mode-only {
   pointer-events: none;
 }
 
-.tools-portrait-showcase:hover .orbit-carousel-3d,
-.tools-portrait-showcase:hover .orbit-card-inner {
-  animation-play-state: paused;
-}
-
 @keyframes orbitSpin {
   0% {
     transform: translate(-50%, -50%) rotateZ(12deg) rotateX(-10deg) rotateY(0deg);
@@ -4974,6 +4969,7 @@ body.animating-to-build .build-mode-only {
   margin-left: -37px;
   transform-style: preserve-3d;
   transform: rotateY(var(--item-angle, 0deg)) translateZ(var(--orbit-radius, 160px));
+  pointer-events: none;
 }
 
 .orbit-card-inner {
@@ -4988,18 +4984,12 @@ body.animating-to-build .build-mode-only {
   align-items: center;
   justify-content: center;
   padding: 0;
-  pointer-events: auto;
-  cursor: pointer;
+  pointer-events: none;
+  cursor: default;
   filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.22));
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
   transform-origin: center center;
   transform-style: preserve-3d;
   backface-visibility: visible;
-}
-
-.orbit-card-inner:hover {
-  transform: scale(1.18);
-  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 14px rgba(255, 255, 255, 0.6));
 }
 
 .orbit-card-img {
