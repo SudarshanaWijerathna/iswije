@@ -2,29 +2,61 @@
 
 import React, { useState } from 'react';
 
+export interface MotionDualVideoItem {
+  src: string;
+  label: string;
+}
+
 export interface MotionProjectItem {
   id: string;
   title: string;
+  category: string;
   tools: string[];
   duration: string;
   fps: string;
+  resolution: string;
   description: string;
   previewClass: string;
-  animatedGraphic: React.ReactNode;
+  aspectRatio: string;
   videoSrc?: string;
+  dualVideos?: MotionDualVideoItem[];
 }
 
 const MOTION_PROJECTS: MotionProjectItem[] = [
   {
     id: 'motion-0',
     title: 'Black Hole — Illustrated Motion Study',
+    category: 'VFX & Scientific Visualization',
     tools: ['After Effects', 'Illustrator'],
     duration: '0:15 Loop',
     fps: '24 FPS',
+    resolution: '1280 × 720 (16:9 Widescreen)',
     description: 'Stylised motion graphic exploring black hole anatomy — layered accretion disk strokes, photon ring glow, and event horizon depth rendered in a flat illustrated design language.',
     previewClass: 'motion-preview-blackhole',
-    videoSrc: '/black_hole_detailed.webm',
-    animatedGraphic: null,
+    aspectRatio: '16 / 9',
+    videoSrc: '/motion/black-hole-motion-study.webm',
+  },
+  {
+    id: 'motion-1',
+    title: 'Interactive Character Micro-Interactions — Sign-Up & Auth Suite',
+    category: 'UI/UX & Character Motion',
+    tools: ['After Effects', 'Figma', 'Illustrator'],
+    duration: '0:07 Dual Loop',
+    fps: '30 FPS',
+    resolution: 'Dual 500 × 500 (16:9 Combined Canvas)',
+    description: 'Bespoke robot companion micro-interactions designed for seamless onboarding — featuring tactile input state morphing during registration and continuous biometric fingerprint scanning transitions.',
+    previewClass: 'motion-preview-dual-suite',
+    aspectRatio: '16 / 9',
+    dualVideos: [
+      {
+        src: '/motion/signup-interaction-flow.webm',
+        label: 'Registration Flow',
+      },
+      {
+        src: '/motion/authentication-state-transition.webm',
+        label: 'Biometric Auth State',
+      },
+    ],
   },
 ];
 
@@ -49,7 +81,7 @@ export function MotionSection() {
         {MOTION_PROJECTS.map((item) => (
           <article
             key={item.id}
-            className="motion-card"
+            className="motion-card motion-card-full"
             onClick={() => setActiveMotion(item)}
             role="button"
             tabIndex={0}
@@ -61,9 +93,36 @@ export function MotionSection() {
               }
             }}
           >
-            {/* Visual Screen Area — full card, no body below */}
-            <div className={`motion-card-viewport ${item.previewClass}`}>
-              {item.videoSrc ? (
+            {/* Visual Screen Area */}
+            <div
+              className={`motion-card-viewport ${item.previewClass}`}
+              style={{ aspectRatio: item.aspectRatio }}
+            >
+              {item.dualVideos ? (
+                <div className="motion-dual-stage">
+                  <div className="motion-dual-pane motion-pane-left">
+                    <video
+                      src={item.dualVideos[0].src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="motion-dual-video"
+                    />
+                  </div>
+                  <div className="motion-dual-divider"></div>
+                  <div className="motion-dual-pane motion-pane-right">
+                    <video
+                      src={item.dualVideos[1].src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="motion-dual-video"
+                    />
+                  </div>
+                </div>
+              ) : (
                 <video
                   src={item.videoSrc}
                   autoPlay
@@ -72,12 +131,11 @@ export function MotionSection() {
                   playsInline
                   className="motion-card-video"
                 />
-              ) : (
-                item.animatedGraphic
               )}
 
               {/* Hover Info Overlay */}
               <div className="motion-hover-overlay">
+                <span className="motion-hover-cat">{item.category}</span>
                 <h3 className="motion-hover-title">{item.title}</h3>
                 <p className="motion-hover-desc">{item.description}</p>
               </div>
@@ -109,13 +167,40 @@ export function MotionSection() {
             </button>
 
             <div className="brand-modal-header">
-              <span className="brand-modal-cat">AFTER EFFECTS COMPOSITION</span>
+              <span className="brand-modal-cat">{activeMotion.category}</span>
               <h3 className="brand-modal-title">{activeMotion.title}</h3>
             </div>
 
-            {/* Large Stage Viewport */}
-            <div className={`motion-modal-stage ${activeMotion.previewClass}`}>
-              {activeMotion.videoSrc ? (
+            {/* Large Stage Viewport with 16:9 ratio */}
+            <div
+              className={`motion-modal-stage ${activeMotion.previewClass}`}
+              style={{ aspectRatio: activeMotion.aspectRatio }}
+            >
+              {activeMotion.dualVideos ? (
+                <div className="motion-dual-stage">
+                  <div className="motion-dual-pane motion-pane-left">
+                    <video
+                      src={activeMotion.dualVideos[0].src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="motion-dual-video"
+                    />
+                  </div>
+                  <div className="motion-dual-divider"></div>
+                  <div className="motion-dual-pane motion-pane-right">
+                    <video
+                      src={activeMotion.dualVideos[1].src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="motion-dual-video"
+                    />
+                  </div>
+                </div>
+              ) : (
                 <video
                   src={activeMotion.videoSrc}
                   autoPlay
@@ -124,8 +209,6 @@ export function MotionSection() {
                   playsInline
                   className="motion-modal-video"
                 />
-              ) : (
-                activeMotion.animatedGraphic
               )}
             </div>
 
@@ -140,7 +223,7 @@ export function MotionSection() {
               </div>
               <div className="motion-spec-item">
                 <span className="spec-label">Resolution</span>
-                <span className="spec-value">3840 × 2160 (4K UHD)</span>
+                <span className="spec-value">{activeMotion.resolution}</span>
               </div>
             </div>
 

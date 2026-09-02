@@ -59,13 +59,21 @@ export function DesignToolsSection() {
             })}
           </div>
 
-          {/* Central Portrait Sitting with Laptop */}
-          <img
-            src="/portrait003.png"
-            alt="Sudarshana Wijerathna working with creative design tools"
-            className="tools-portrait-img"
-            draggable={false}
-          />
+          {/* Central Portrait Sitting with Laptop & Doodle Background */}
+          <div className="tools-portrait-wrap">
+            <img
+              src="/doodle_01.svg"
+              alt=""
+              className="portrait-doodle-bg"
+              aria-hidden="true"
+            />
+            <img
+              src="/portrait003.png"
+              alt="Sudarshana Wijerathna working with creative design tools"
+              className="tools-portrait-img"
+              draggable={false}
+            />
+          </div>
         </div>
       </div>
     </div>

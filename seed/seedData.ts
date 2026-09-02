@@ -223,112 +223,175 @@ export async function seed() {
 
   // 6. Seed Certificates
   try {
-    const existingCerts = await payload.find({ collection: 'certificates' as any });
-    if (existingCerts.totalDocs === 0) {
-      await payload.create({
-        collection: 'certificates' as any,
-        data: {
-          title: 'Deep Learning Specialization',
-          issuer: 'DeepLearning.AI / Coursera',
-          category: 'ai-ml',
-          issueDate: '2024',
-          credentialId: 'DL-SPEC-982471',
-          credentialUrl: 'https://coursera.org/verify/specialization/sample',
-          description: 'Mastered neural networks, CNNs, RNNs, Transformers, optimization algorithms (Adam, RMSProp), and deep learning engineering best practices.',
-          skills: [
-            { skill: 'Deep Learning' },
-            { skill: 'PyTorch' },
-            { skill: 'Transformers' },
-            { skill: 'CNNs & RNNs' },
-          ],
-          isFeatured: true,
-          order: 1,
-        } as any,
-      });
+    const existingCerts = await payload.find({ collection: 'certificates' as any, limit: 100 });
+    // Remove old mock certificates if any exist
+    if (existingCerts.docs && existingCerts.docs.length > 0) {
+      for (const doc of existingCerts.docs) {
+        try {
+          await payload.delete({
+            collection: 'certificates' as any,
+            id: doc.id,
+          });
+        } catch (delErr) {
+          // ignore
+        }
+      }
+    }
 
-      await payload.create({
-        collection: 'certificates' as any,
-        data: {
-          title: 'AWS Certified Solutions Architect – Associate',
-          issuer: 'Amazon Web Services (AWS)',
-          category: 'cloud-devops',
-          issueDate: '2024',
-          expiryDate: '2027',
-          credentialId: 'AWS-SAA-839201',
-          credentialUrl: 'https://aws.amazon.com/verification',
-          description: 'Designing highly available, scalable, fault-tolerant, and secure distributed cloud systems on AWS architecture.',
-          skills: [
-            { skill: 'AWS Cloud' },
-            { skill: 'Distributed Systems' },
-            { skill: 'ECS / EKS' },
-            { skill: 'IAM & Security' },
-          ],
-          isFeatured: true,
-          order: 2,
-        } as any,
-      });
+    const realCertificates = [
+      {
+        title: 'Supervised Machine Learning: Regression and Classification',
+        issuer: 'DeepLearning.AI & Stanford University (Coursera)',
+        category: 'ai-ml',
+        issueDate: 'Nov 2025',
+        credentialId: 'STXINBTSDZZ7',
+        credentialUrl: 'https://coursera.org/verify/STXINBTSDZZ7',
+        description: 'Mastered core machine learning foundations, linear regression, logistic regression, gradient descent algorithms, cost functions, and regularization techniques under Andrew Ng.',
+        imageStaticUrl: '/certificates/previews/supervised-learning-regression-classification.png',
+        pdfUrl: '/certificates/docs/supervised-learning-regression-classification.pdf',
+        skills: [
+          { skill: 'Supervised Learning' },
+          { skill: 'Linear Regression' },
+          { skill: 'Logistic Regression' },
+          { skill: 'Gradient Descent' },
+          { skill: 'Regularization' },
+          { skill: 'Python / NumPy' },
+        ],
+        isFeatured: true,
+        order: 1,
+      },
+      {
+        title: 'Advanced Learning Algorithms',
+        issuer: 'DeepLearning.AI & Stanford University (Coursera)',
+        category: 'ai-ml',
+        issueDate: 'Dec 2025',
+        credentialId: 'R9F4U59H09GZ',
+        credentialUrl: 'https://coursera.org/verify/R9F4U59H09GZ',
+        description: 'Built and trained multi-layer artificial neural networks with TensorFlow, implemented decision trees, random forests, XGBoost tree ensembles, and machine learning diagnostic methods.',
+        imageStaticUrl: '/certificates/previews/advanced-learning-algorithms.png',
+        pdfUrl: '/certificates/docs/advanced-learning-algorithms.pdf',
+        skills: [
+          { skill: 'Neural Networks' },
+          { skill: 'TensorFlow' },
+          { skill: 'Decision Trees' },
+          { skill: 'Random Forests' },
+          { skill: 'XGBoost' },
+          { skill: 'Model Evaluation' },
+        ],
+        isFeatured: true,
+        order: 2,
+      },
+      {
+        title: 'Unsupervised Learning, Recommenders, Reinforcement Learning',
+        issuer: 'DeepLearning.AI & Stanford University (Coursera)',
+        category: 'ai-ml',
+        issueDate: 'Mar 2026',
+        credentialId: 'II10SNZ662BG',
+        credentialUrl: 'https://coursera.org/verify/II10SNZ662BG',
+        description: 'Implemented K-means clustering, anomaly detection with Gaussian distribution models, collaborative filtering & content-based recommender systems, PCA dimensionality reduction, and deep Q-learning.',
+        imageStaticUrl: '/certificates/previews/unsupervised-learning-recommenders-reinforcement-learning.png',
+        pdfUrl: '/certificates/docs/unsupervised-learning-recommenders-reinforcement-learning.pdf',
+        skills: [
+          { skill: 'Unsupervised Learning' },
+          { skill: 'K-Means Clustering' },
+          { skill: 'Anomaly Detection' },
+          { skill: 'Recommender Systems' },
+          { skill: 'Reinforcement Learning' },
+          { skill: 'PCA' },
+        ],
+        isFeatured: true,
+        order: 3,
+      },
+      {
+        title: 'Generative AI for Everyone',
+        issuer: 'DeepLearning.AI (Coursera)',
+        category: 'ai-ml',
+        issueDate: 'Oct 2025',
+        credentialId: '6SZH120EFAPU',
+        credentialUrl: 'https://coursera.org/verify/6SZH120EFAPU',
+        description: 'Explored generative AI capabilities, LLM architectures, prompt engineering, Retrieval-Augmented Generation (RAG), diffusion models, AI project lifecycle, and strategic enterprise operationalization.',
+        imageStaticUrl: '/certificates/previews/generative-ai-for-everyone.png',
+        pdfUrl: '/certificates/docs/generative-ai-for-everyone.pdf',
+        skills: [
+          { skill: 'Generative AI' },
+          { skill: 'LLMs' },
+          { skill: 'Prompt Engineering' },
+          { skill: 'RAG' },
+          { skill: 'AI Lifecycle' },
+          { skill: 'Diffusion Models' },
+        ],
+        isFeatured: true,
+        order: 4,
+      },
+      {
+        title: 'Front-End Web Development',
+        issuer: 'Centre for Open & Distance Learning (CODL), University of Moratuwa',
+        category: 'software-eng',
+        issueDate: '2025',
+        credentialId: 'cXpTJVIEEn',
+        credentialUrl: 'https://open.uom.lk/verify',
+        description: 'Comprehensive curriculum in modern responsive web development, semantic HTML5, CSS3 styling systems, client-side JavaScript architecture, and responsive UI engineering.',
+        imageStaticUrl: '/certificates/previews/front-end-web-development-uom.png',
+        pdfUrl: '/certificates/docs/front-end-web-development-uom.pdf',
+        skills: [
+          { skill: 'HTML5' },
+          { skill: 'CSS3' },
+          { skill: 'JavaScript' },
+          { skill: 'Responsive Design' },
+          { skill: 'DOM Manipulation' },
+          { skill: 'Web Standards' },
+        ],
+        isFeatured: true,
+        order: 5,
+      },
+      {
+        title: 'PHP Bootcamp: The Complete Programming Course With MYSQL',
+        issuer: 'Udemy (Knowledge Nest)',
+        category: 'software-eng',
+        issueDate: 'Jun 2025',
+        credentialId: 'UC-3b46872d-69de-44ae-b083-c34dd65765c2',
+        credentialUrl: 'https://ude.my/UC-3b46872d-69de-44ae-b083-c34dd65765c2',
+        description: 'Full backend engineering course covering PHP syntax, Object-Oriented Programming (OOP), MySQL relational database design, PDO queries, session management, and authentication security.',
+        imageStaticUrl: '/certificates/previews/udemy-certificate.png',
+        pdfUrl: '/certificates/docs/udemy-certificate.pdf',
+        skills: [
+          { skill: 'PHP' },
+          { skill: 'MySQL' },
+          { skill: 'OOP' },
+          { skill: 'PDO' },
+          { skill: 'Backend Development' },
+          { skill: 'Database Modeling' },
+        ],
+        isFeatured: false,
+        order: 6,
+      },
+      {
+        title: 'Web Design for Beginners',
+        issuer: 'Centre for Open & Distance Learning (CODL), University of Moratuwa',
+        category: 'design',
+        issueDate: '2025',
+        credentialId: 'pkwKRmvG9q',
+        credentialUrl: 'https://open.uom.lk/verify',
+        description: 'Foundational web design principles covering layout structure, visual hierarchy, color theory, typography standards, UI wireframing, and user-centric web interface design.',
+        imageStaticUrl: '/certificates/previews/web-design-for-beginners-uom.png',
+        pdfUrl: '/certificates/docs/web-design-for-beginners-uom.pdf',
+        skills: [
+          { skill: 'Web Design' },
+          { skill: 'UI Wireframing' },
+          { skill: 'Visual Hierarchy' },
+          { skill: 'Color Theory' },
+          { skill: 'Typography' },
+          { skill: 'Layout Systems' },
+        ],
+        isFeatured: false,
+        order: 7,
+      },
+    ];
 
+    for (const cert of realCertificates) {
       await payload.create({
         collection: 'certificates' as any,
-        data: {
-          title: 'Machine Learning Specialization',
-          issuer: 'Stanford Online & DeepLearning.AI',
-          category: 'ai-ml',
-          issueDate: '2023',
-          credentialId: 'STANFORD-ML-44102',
-          credentialUrl: 'https://coursera.org/verify/specialization/sample',
-          description: 'Supervised and unsupervised learning, decision trees, ensemble methods, anomaly detection, recommender systems, and reinforcement learning fundamentals.',
-          skills: [
-            { skill: 'Machine Learning' },
-            { skill: 'Scikit-Learn' },
-            { skill: 'Algorithms' },
-            { skill: 'Gradient Boosting' },
-          ],
-          isFeatured: true,
-          order: 3,
-        } as any,
-      });
-
-      await payload.create({
-        collection: 'certificates' as any,
-        data: {
-          title: 'Professional Data Engineering',
-          issuer: 'Google Cloud Platform (GCP)',
-          category: 'data-science',
-          issueDate: '2023',
-          credentialId: 'GCP-PDE-119382',
-          credentialUrl: 'https://cloud.google.com/certification',
-          description: 'Building data processing pipelines, BigQuery warehousing, real-time stream processing with Pub/Sub & Dataflow, and MLOps operationalization.',
-          skills: [
-            { skill: 'BigQuery' },
-            { skill: 'Data Pipelines' },
-            { skill: 'Apache Beam' },
-            { skill: 'MLOps' },
-          ],
-          isFeatured: false,
-          order: 4,
-        } as any,
-      });
-
-      await payload.create({
-        collection: 'certificates' as any,
-        data: {
-          title: 'Full Stack Software Architecture & Design',
-          issuer: 'Meta / Coursera',
-          category: 'software-eng',
-          issueDate: '2023',
-          credentialId: 'META-FSD-771290',
-          credentialUrl: 'https://coursera.org/verify/sample',
-          description: 'Advanced React patterns, Next.js architecture, RESTful & GraphQL API design, database modeling, and microservices design principles.',
-          skills: [
-            { skill: 'React / Next.js' },
-            { skill: 'TypeScript' },
-            { skill: 'API Design' },
-            { skill: 'System Architecture' },
-          ],
-          isFeatured: false,
-          order: 5,
-        } as any,
+        data: cert as any,
       });
     }
   } catch (e) {

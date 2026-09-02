@@ -34,10 +34,8 @@ interface CertificatesClientProps {
 const CATEGORIES = [
   { label: 'All', value: 'all' },
   { label: 'AI & Machine Learning', value: 'ai-ml' },
-  { label: 'Cloud & DevOps', value: 'cloud-devops' },
-  { label: 'Software Engineering', value: 'software-eng' },
-  { label: 'Data Science', value: 'data-science' },
-  { label: 'Design & UX', value: 'design' },
+  { label: 'Web & Software Development', value: 'software-eng' },
+  { label: 'Web & UI Design', value: 'design' },
 ];
 
 export function CertificatesClient({ initialCertificates, profile }: CertificatesClientProps) {
@@ -66,10 +64,9 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
       const matchesCategory =
         selectedCategory === 'all' ||
         cert.category === selectedCategory ||
-        (selectedCategory === 'ai-ml' && cert.category?.includes('ai')) ||
-        (selectedCategory === 'cloud-devops' && cert.category?.includes('cloud')) ||
-        (selectedCategory === 'software-eng' && cert.category?.includes('software')) ||
-        (selectedCategory === 'data-science' && cert.category?.includes('data'));
+        (selectedCategory === 'ai-ml' && (cert.category?.includes('ai') || cert.category?.includes('ml'))) ||
+        (selectedCategory === 'software-eng' && (cert.category?.includes('software') || cert.category?.includes('web') || cert.category?.includes('dev') || cert.category?.includes('swe'))) ||
+        (selectedCategory === 'design' && (cert.category?.includes('design') || cert.category?.includes('ui') || cert.category?.includes('ux')));
 
       // Search query filter
       const query = searchQuery.trim().toLowerCase();
@@ -97,12 +94,9 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
     switch (category) {
       case 'ai-ml':
         return 'cert-badge-ai';
-      case 'cloud-devops':
-        return 'cert-badge-cloud';
       case 'software-eng':
+      case 'web-dev':
         return 'cert-badge-swe';
-      case 'data-science':
-        return 'cert-badge-data';
       case 'design':
         return 'cert-badge-design';
       default:
@@ -113,15 +107,12 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
   const formatCategoryName = (category?: string) => {
     switch (category) {
       case 'ai-ml':
-        return 'AI & ML';
-      case 'cloud-devops':
-        return 'Cloud & DevOps';
+        return 'AI & Machine Learning';
       case 'software-eng':
-        return 'Software Eng';
-      case 'data-science':
-        return 'Data Science';
+      case 'web-dev':
+        return 'Web & Software';
       case 'design':
-        return 'Design / UX';
+        return 'Web & UI Design';
       default:
         return 'Certification';
     }
@@ -262,11 +253,10 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
           {filteredCertificates.length > 0 ? (
             <div className="certs-grid">
               {filteredCertificates.map((cert, index) => {
-                const isFeatured = cert.isFeatured;
                 return (
                   <article
                     key={cert.id || index}
-                    className={`cert-card ${isFeatured ? 'cert-card-featured' : ''}`}
+                    className="cert-card"
                   >
                     {/* Top Row: Category & Issue Date */}
                     <div className="cert-card-top">
@@ -283,6 +273,41 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
                         <span>{cert.issueDate}</span>
                       </span>
                     </div>
+
+                    {/* Certificate Thumbnail Preview */}
+                    {cert.imageUrl && (
+                      <div
+                        className="cert-thumbnail-wrap"
+                        onClick={() => setPreviewModalCert(cert)}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Preview ${cert.title} certificate`}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setPreviewModalCert(cert);
+                          }
+                        }}
+                      >
+                        <img
+                          src={cert.imageUrl}
+                          alt={`${cert.title} preview`}
+                          className="cert-thumbnail-img"
+                          loading="lazy"
+                        />
+                        <div className="cert-thumbnail-overlay">
+                          <div className="cert-thumbnail-zoom-badge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="11" cy="11" r="8"></circle>
+                              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                              <line x1="11" y1="8" x2="11" y2="14"></line>
+                              <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                            <span>Preview</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Issuer */}
                     <div className="cert-issuer-wrap">
@@ -352,7 +377,7 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
                           rel="noopener noreferrer"
                           className="cert-action-btn cert-verify-btn"
                         >
-                          <span>Verify Credential</span>
+                          <span>Verify</span>
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="7" y1="17" x2="17" y2="7"></line>
                             <polyline points="7 7 17 7 17 17"></polyline>
@@ -364,20 +389,38 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
                         </span>
                       )}
 
-                      {cert.imageUrl && (
-                        <button
-                          type="button"
-                          className="cert-action-btn cert-preview-btn"
-                          onClick={() => setPreviewModalCert(cert)}
-                          title="Preview Certificate"
-                        >
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                          </svg>
-                          <span>Preview</span>
-                        </button>
-                      )}
+                      <div className="cert-footer-right-actions">
+                        {cert.pdfUrl && (
+                          <a
+                            href={cert.pdfUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cert-action-btn cert-pdf-btn"
+                            title="View Original PDF"
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                              <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <span>PDF</span>
+                          </a>
+                        )}
+
+                        {cert.imageUrl && (
+                          <button
+                            type="button"
+                            className="cert-action-btn cert-preview-btn"
+                            onClick={() => setPreviewModalCert(cert)}
+                            title="Preview Certificate"
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <span>Preview</span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </article>
                 );
@@ -463,20 +506,36 @@ export function CertificatesClient({ initialCertificates, profile }: Certificate
               )}
             </div>
             <div className="cert-modal-footer">
-              {previewModalCert.credentialUrl && (
-                <a
-                  href={previewModalCert.credentialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cert-modal-verify-btn"
-                >
-                  <span>Open Verification Portal</span>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </a>
-              )}
+              <div className="cert-modal-footer-left">
+                {previewModalCert.pdfUrl && (
+                  <a
+                    href={previewModalCert.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cert-modal-pdf-btn"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    <span>View Full PDF</span>
+                  </a>
+                )}
+                {previewModalCert.credentialUrl && (
+                  <a
+                    href={previewModalCert.credentialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cert-modal-verify-btn"
+                  >
+                    <span>Open Verification</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+                )}
+              </div>
               <button
                 type="button"
                 className="cert-modal-dismiss-btn"

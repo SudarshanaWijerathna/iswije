@@ -13,6 +13,7 @@ import { BrandIdentitiesSection } from '@/components/BrandIdentitiesSection';
 import { AboutSection } from '@/components/AboutSection';
 import { ContactSection } from '@/components/ContactSection';
 import { BackToTop } from '@/components/BackToTop';
+import { FloatingModeBubble } from '@/components/FloatingModeBubble';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,27 +49,29 @@ export default async function HomePage() {
         limit: 100,
       });
       if (pRes.docs && pRes.docs.length > 0) {
-        projectsList = pRes.docs.map((doc: any) => ({
-          id: doc.id,
-          title: doc.title,
-          category: doc.category,
-          isFeatured: doc.isFeatured,
-          subtitle: doc.subtitle,
-          description: doc.description,
-          liveDemoUrl: doc.liveDemoUrl,
-          liveDemoText: doc.liveDemoText,
-          githubUrl: doc.githubUrl,
-          previewType: doc.previewType,
-          thumbnailUrl:
-            typeof doc.thumbnail === 'object' && doc.thumbnail?.url
-              ? doc.thumbnail.url
-              : doc.thumbnailStaticUrl,
-          logoUrl:
-            typeof doc.logo === 'object' && doc.logo?.url
-              ? doc.logo.url
-              : doc.logoStaticUrl,
-          tags: doc.tags,
-        }));
+        projectsList = pRes.docs
+          .filter((doc: any) => doc.title?.toLowerCase() !== 'insightflow' && doc.id !== 'insightflow')
+          .map((doc: any) => ({
+            id: doc.id,
+            title: doc.title,
+            category: doc.category,
+            isFeatured: doc.isFeatured,
+            subtitle: doc.subtitle,
+            description: doc.description,
+            liveDemoUrl: doc.liveDemoUrl,
+            liveDemoText: doc.liveDemoText,
+            githubUrl: doc.githubUrl,
+            previewType: doc.previewType,
+            thumbnailUrl:
+              typeof doc.thumbnail === 'object' && doc.thumbnail?.url
+                ? doc.thumbnail.url
+                : doc.thumbnailStaticUrl,
+            logoUrl:
+              typeof doc.logo === 'object' && doc.logo?.url
+                ? doc.logo.url
+                : doc.logoStaticUrl,
+            tags: doc.tags,
+          }));
       }
     } catch (e) {
       // fallback
@@ -182,6 +185,9 @@ export default async function HomePage() {
           rightsReserved={siteSettings?.footerRights || 'All rights reserved'}
         />
       </section>
+
+      {/* Floating Mode Switch Bubble (Visible after scrolling past mode toggle) */}
+      <FloatingModeBubble />
     </>
   );
 }

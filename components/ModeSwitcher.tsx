@@ -8,9 +8,15 @@ interface ModeSwitcherProps {
 
 export function ModeSwitcher({ onModeChange }: ModeSwitcherProps) {
   const [mode, setMode] = useState<'build' | 'design'>('build');
+  const modeRef = React.useRef<'build' | 'design'>('build');
+  modeRef.current = mode;
 
-  const switchMode = (newMode: 'build' | 'design') => {
-    if (newMode === mode) return;
+  const switchMode = (
+    newMode: 'build' | 'design',
+    options?: { animate?: boolean; instantScroll?: boolean; targetId?: string }
+  ) => {
+    const isModeChange = newMode !== modeRef.current;
+    modeRef.current = newMode;
     setMode(newMode);
     document.body.setAttribute('data-mode', newMode);
     const canvas = document.getElementById('canvasInner');
@@ -18,70 +24,130 @@ export function ModeSwitcher({ onModeChange }: ModeSwitcherProps) {
       canvas.setAttribute('data-mode', newMode);
     }
 
-    // Trigger section sliding animations
-    if (newMode === 'design') {
-      document.body.classList.remove('animating-to-build');
-      document.body.classList.add('animating-to-design');
-    } else {
-      document.body.classList.remove('animating-to-design');
-      document.body.classList.add('animating-to-build');
-    }
-    setTimeout(() => {
-      document.body.classList.remove('animating-to-design', 'animating-to-build');
-    }, 550);
+    const shouldAnimate = options?.animate !== false && isModeChange;
 
-    // Trigger logo wipe animation & transition video
-    const heroLogo = document.getElementById('heroLogo');
-    if (heroLogo) {
+    if (shouldAnimate) {
+      // Trigger section sliding animations
       if (newMode === 'design') {
-        heroLogo.classList.remove('transition-to-build');
-        heroLogo.classList.add('transition-to-design');
+        document.body.classList.remove('animating-to-build');
+        document.body.classList.add('animating-to-design');
       } else {
-        heroLogo.classList.remove('transition-to-design');
-        heroLogo.classList.add('transition-to-build');
+        document.body.classList.remove('animating-to-design');
+        document.body.classList.add('animating-to-build');
       }
       setTimeout(() => {
-        heroLogo.classList.remove('transition-to-design', 'transition-to-build');
-      }, 1050);
+        document.body.classList.remove('animating-to-design', 'animating-to-build');
+      }, 550);
+
+      // Trigger logo wipe animation & transition video
+      const heroLogo = document.getElementById('heroLogo');
+      if (heroLogo) {
+        if (newMode === 'design') {
+          heroLogo.classList.remove('transition-to-build');
+          heroLogo.classList.add('transition-to-design');
+        } else {
+          heroLogo.classList.remove('transition-to-design');
+          heroLogo.classList.add('transition-to-build');
+        }
+        setTimeout(() => {
+          heroLogo.classList.remove('transition-to-design', 'transition-to-build');
+        }, 1050);
+      }
+
+      const video = document.getElementById('logoTransitionVideo') as HTMLVideoElement | null;
+      if (video) {
+        video.classList.add('playing');
+        video.currentTime = 0;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
+        const onEnded = () => {
+          video.classList.remove('playing');
+        };
+        video.addEventListener('ended', onEnded, { once: true });
+        setTimeout(() => {
+          video.classList.remove('playing');
+        }, 1050);
+      }
     }
 
-    const video = document.getElementById('logoTransitionVideo') as HTMLVideoElement | null;
-    if (video) {
-      video.classList.add('playing');
-      video.currentTime = 0;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {});
-      }
-      const onEnded = () => {
-        video.classList.remove('playing');
-      };
-      video.addEventListener('ended', onEnded, { once: true });
-      setTimeout(() => {
-        video.classList.remove('playing');
-      }, 1050);
-    }
     // Update Favicon based on active mode
     const faviconHref = newMode === 'design' ? '/logo-designmode.svg' : '/logo-buildmode.svg';
     const favicons = document.querySelectorAll("link[rel*='icon']");
     favicons.forEach((fav: any) => {
       fav.href = faviconHref;
     });
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('portfolioModeChange', { detail: { mode: newMode } }));
+    }
+
     if (onModeChange) {
       onModeChange(newMode);
+    }
+
+    if (options?.instantScroll) {
+      const targetId = options.targetId || (typeof window !== 'undefined' && window.location.hash ? window.location.hash.replace('#', '') : 'designModeContent');
+      const scrollToTarget = () => {
+        const elem = document.getElementById(targetId) || document.getElementById('designModeContent');
+        if (elem) {
+          elem.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      };
+      scrollToTarget();
+      if (typeof window !== 'undefined') {
+        requestAnimationFrame(scrollToTarget);
+        setTimeout(scrollToTarget, 50);
+      }
     }
   };
 
   useEffect(() => {
     // Expose globally to maintain backward compatibility
     (window as any).setPortfolioMode = switchMode;
-    document.body.setAttribute('data-mode', 'build');
+
+    // Check if initial mode or section is specified in URL
+    let initialMode: 'build' | 'design' = 'build';
+    let targetSectionId = '';
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const modeParam = params.get('mode');
+      const hash = window.location.hash;
+
+      if (
+        modeParam === 'design' ||
+        hash === '#designModeContent' ||
+        hash === '#logosSection' ||
+        hash === '#brandIdentities' ||
+        hash === '#motionSection'
+      ) {
+        initialMode = 'design';
+        targetSectionId = hash ? hash.replace('#', '') : 'designModeContent';
+      }
+    }
+
+    if (initialMode === 'design') {
+      switchMode('design', { animate: false, instantScroll: true, targetId: targetSectionId });
+    } else {
+      document.body.setAttribute('data-mode', 'build');
+    }
+
+    const handleExternal = (e: any) => {
+      if (e.detail?.mode && e.detail.mode !== modeRef.current) {
+        switchMode(e.detail.mode);
+      }
+    };
+    window.addEventListener('portfolioModeChange', handleExternal);
+    return () => {
+      window.removeEventListener('portfolioModeChange', handleExternal);
+    };
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
       e.preventDefault();
-      const nextMode = mode === 'build' ? 'design' : 'build';
+      const nextMode = modeRef.current === 'build' ? 'design' : 'build';
       switchMode(nextMode);
     }
   };

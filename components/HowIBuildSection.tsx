@@ -141,21 +141,7 @@ export function HowIBuildSection() {
   }, []);
 
   const toggleExpand = () => {
-    // Measure inner content height immediately for instant simultaneous scrolling
-    const innerEl = drawerRef.current?.querySelector('.tech-expanded-inner') as HTMLElement | null;
-    const height = innerEl ? (innerEl.offsetHeight + 14) : (drawerRef.current?.scrollHeight || 240);
-
-    if (!isExpanded) {
-      setIsExpanded(true);
-      if (typeof window !== 'undefined') {
-        window.scrollBy({ top: height, behavior: 'smooth' });
-      }
-    } else {
-      setIsExpanded(false);
-      if (typeof window !== 'undefined') {
-        window.scrollBy({ top: -height, behavior: 'smooth' });
-      }
-    }
+    setIsExpanded((prev) => !prev);
   };
 
   const col1Items = [...COLUMN_1_TECH, ...COLUMN_1_TECH, ...COLUMN_1_TECH];
@@ -203,13 +189,21 @@ export function HowIBuildSection() {
               })}
             </div>
 
-            {/* Central Portrait Sitting with Laptop */}
-            <img
-              src="/portrait003.png"
-              alt="Sudarshana Wijerathna building engineering pipelines"
-              className="tools-portrait-img"
-              draggable={false}
-            />
+            {/* Central Portrait Sitting with Laptop & Doodle Background */}
+            <div className="tools-portrait-wrap">
+              <img
+                src="/doodle_01.svg"
+                alt=""
+                className="portrait-doodle-bg"
+                aria-hidden="true"
+              />
+              <img
+                src="/portrait003.png"
+                alt="Sudarshana Wijerathna building engineering pipelines"
+                className="tools-portrait-img"
+                draggable={false}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -225,19 +219,7 @@ export function HowIBuildSection() {
             Production-proven languages, AI/ML frameworks, distributed backend engines, cloud platforms, and frontend architectures I leverage to deliver high-performance digital systems.
           </p>
           
-          {/* Interactive Expand / Collapse Button */}
-          <button
-            ref={buttonRef}
-            type="button"
-            className={`tech-showcase-cta ${isExpanded ? 'active' : ''}`}
-            onClick={toggleExpand}
-            aria-expanded={isExpanded}
-          >
-            <span>{isExpanded ? 'Hide Tech Stack' : 'Explore Tech Stack'}</span>
-            <i className={`fa-solid ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-          </button>
-
-          {/* Expandable Full Categorized Tech Stack Drawer */}
+          {/* Expandable Full Categorized Tech Stack Drawer (Above the Button) */}
           <div
             ref={drawerRef}
             className={`tech-expanded-drawer ${isExpanded ? 'open' : ''}`}
@@ -259,6 +241,18 @@ export function HowIBuildSection() {
               ))}
             </div>
           </div>
+
+          {/* Interactive Expand / Collapse Button (Below the List) */}
+          <button
+            ref={buttonRef}
+            type="button"
+            className={`tech-showcase-cta ${isExpanded ? 'active' : ''}`}
+            onClick={toggleExpand}
+            aria-expanded={isExpanded}
+          >
+            <span>{isExpanded ? 'Hide Tech Stack' : 'Explore Tech Stack'}</span>
+            <i className={`fa-solid ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+          </button>
         </div>
 
         {/* 4 Multi-Directional Parallax Columns */}
